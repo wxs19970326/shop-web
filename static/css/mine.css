@@ -1,0 +1,135 @@
+/*body {*/
+    /*background: url("../img/bg.png");*/
+/*}*/
+
+#blog-home-list {
+    height: 69px;
+    word-break: break-all;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+    overflow: hidden;
+}
+
+.m-padded-ud-mini {
+    padding-top: 0.2em !important;
+    padding-bottom: 0.2em !important;
+}
+
+.m-width-lr-middle {
+    width: 18em !important;
+}
+
+/*---------------------内边距----------------*/
+.m-padded-o {
+    padding: -0.2em !important;
+}
+
+.m-padded-mini {
+    padding: 0.2em !important;
+}
+.m-padded-tiny {
+    padding: 0.3em !important;
+}
+
+.m-padded-ud-tiny {
+    padding-top: 0.3em !important;
+    padding-bottom: 0.3em !important;
+}
+
+.m-padded-ud-small {
+    padding-top: 0.5em !important;
+    padding-bottom: 0.5em !important;
+}
+
+.m-padded-ud {
+    padding-top: 1em !important;
+    padding-bottom: 1em !important;
+}
+
+.m-padded-ud-large {
+    padding-top: 2em !important;
+    padding-bottom: 2em !important;
+}
+
+.m-teal {
+    color: #00B5AD !important;
+}
+
+.m-padded-ud-big {
+    padding-top: 3em !important;
+    padding-bottom: 3em !important;
+}
+
+.m-padded-ud-huge {
+    padding-top: 4em !important;
+    padding-bottom: 4em !important;
+}
+
+.m-padded-ud-massive {
+    padding-top: 5em !important;
+    padding-bottom: 5em !important;
+}
+
+.m-padded-lr-mini {
+    padding-left: 1.2em !important;
+    padding-right: 1.2em !important;
+}
+
+.m-padded-lr {
+    padding-left: 2em !important;
+    padding-right: 2em !important;
+}
+/*----------------------------------------------*/
+
+/*------------------container-------------------*/
+.m-container {
+    max-width: 63em !important;
+    margin: auto !important;
+}
+.m-container-small {
+    max-width: 60em !important;
+    margin: auto !important;
+}
+
+/*---------------------text---------------------*/
+.m-text-title {
+    color: black !important;
+    font-size: 20px !important;
+}
+.m-text {
+    font-weight: 300 !important;
+    letter-spacing: 1px !important;
+    line-height: 1.8;
+}
+
+.m-text-thin {
+    font-weight: 300 !important;
+}
+
+.m-text-spaced {
+    letter-spacing: 1px !important;
+}
+
+.m-text-lined {
+    line-height: 1.8;
+}
+
+.m-text-color-opacity {
+    color: black !important;
+    opacity: 0.87 !important;
+}
+
+.m-opacity-mini {
+    opacity: 0.8 !important;
+}
+
+.m-opacity-tiny {
+    opacity: 0.5 !important;
+}
+
+/*--------------display----------*/
+.m-inline-block {
+    display: inline-block !important;
+}
