@@ -1,0 +1,44 @@
+.box {
+    position: relative;
+    width: 427px;
+    height: 38px;
+    background: #e8e8e8;
+    border-radius: 4px;
+    user-select:none;
+}
+.btn {
+    position: absolute;
+    top: 0;
+    width: 50px;
+    height:38px;
+    text-align: center;
+    line-height: 38px;
+    border-radius: 4px;
+    z-index: 3;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    color: black;
+    user-select:none;
+}
+.text-block {
+    position: absolute;
+    width: 100%;
+    margin: 0;
+    text-align: center;
+    line-height: 38px;
+    display: block;
+    z-index: 2;
+    user-select:none;
+    /*-webkit-margin-before: 1em;
+    -webkit-margin-after: 1em;*/
+}
+.bg {
+    position: absolute;
+    height: 100%;
+    background-color: #00B5AD;
+    z-index: 1;
+    border-radius: 4px;
+}
+#flash-block {
+    cursor: pointer;
+}

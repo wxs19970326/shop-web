@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+    <meta charset="UTF-8">
+    <title>九八商城</title>
+</head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css">
+<link rel="stylesheet" href="../static/css/mine.css">
+<link rel="stylesheet" href="../static/css/home.css">
+<body>
+<!------------------导航--------------------->
+<nav id="nav" class="ui inverted attached segment m-padded-ud-mini"></nav>
+
+<!---------------中间内容--------------------->
+<div class="m-padded-ud-large">
+    <div class="ui container">
+        <div class="ui grid">
+    <!------------------左边内容-------------------------------->
+            <div class="eleven wide column">
+                <!------------------书籍------------>
+                <div class="ui attached padded segment">
+                    <div class="ui middle aligned two column grid">
+                        <div class="column">
+                            <h3 class="ui teal header">书籍推荐</h3>
+                        </div>
+                    </div>
+                </div>
+                <!--书籍列表-->
+                <div class="ui attached padded segment">
+                    <div class="ui padded vertical segment m-padded-ud-large">
+                        <div id="book_list" class="teal ui grid">
+
+                        </div>
+                    </div>
+                </div>
+                <!--书籍底部-->
+                <div class="ui bottom attached segment">
+                    <div class="ui middle aligned one column grid">
+                        <div class="center aligned column">
+                            <a href="book_list.html" class="ui teal basic button">更多相关书籍</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!------------博客------------------>
+                <!--博客头-->
+                <div class="ui top attached segment">
+                    <div class="ui middle aligned two column grid">
+                        <div class="column">
+                            <h3 class="ui teal header">博客</h3>
+                        </div>
+                        <div class="right aligned column">
+                            共<h2 id="blog-count" class="ui orange header m-inline-block m-text-thin"></h2>篇
+                        </div>
+                    </div>
+                </div>
+                <!--博客列表-->
+                <div id="blog-list" class="ui attached padded segment">
+                    <!-- 通过请求加载 -->
+                </div>
+                <!--博客列表底部-->
+                <div class="ui bottom attached segment">
+                    <div class="ui middle aligned one column grid">
+                        <div class="center aligned column">
+                            <a href="blog_list.html" class="ui teal basic button">更多相关文章</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    <!--------------右边内容------------------------------------->
+            <div class="five wide column">
+                <div class="ui segments">
+                    <div class="ui secondary segment">
+                        <div class="ui two column grid">
+                            <div class="column">
+                                <i class="idea icon"></i>最新书籍
+                            </div>
+                            <div class="right aligned column">
+                                <a href="book_list.html">more <i class="angle double right icon"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui teal segment">
+                    <div id="bookPush" class="ui fluid vertical menu">
+
+                    </div>
+                </div>
+                </div>
+                <div class="ui segments">
+                    <div class="ui secondary segment">
+                        <div class="ui two column grid">
+                            <div class="column">
+                                <i class="idea icon"></i>热门资源
+                            </div>
+                            <div class="right aligned column">
+                                <a href="eBook_list.html">more <i class="angle double right icon"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui teal segment">
+                        <div id="hotResources" class="ui fluid vertical menu">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="ui segments">
+                    <div class="ui secondary segment">
+                        <div class="ui two column grid">
+                            <div class="column">
+                                <i class="idea icon"></i>最新博客
+                            </div>
+                            <div class="right aligned column">
+                                <a href="blog_list.html">more <i class="angle double right icon"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui teal segment">
+                        <div id="blogPush" class="ui fluid vertical menu">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-------------------底部内容-------------------->
+<footer id="footer" class="ui inverted vertical segment m-padded-ud-massive"></footer>
+
+<script src="../static/js/jquery-3.4.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.js"></script>
+<script src="../static/js/home.js"></script>
+</body>
+</html>
