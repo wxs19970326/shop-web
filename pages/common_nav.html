@@ -16,20 +16,86 @@
         <a href="cart.html" class="item"><i class="cart icon"></i>购物车</a>
         <a href="cart.html" class="item"><i class="heart icon"></i>收藏夹</a>
         <div class="right item">
-            <div class="ui dropdown item">
-                <div class="text">
-                    <a href="login.html" style="color: inherit">登录</a>
-                </div>
-                <div class="text">
-                    &nbsp;&nbsp;
-                </div>
-
-                <div class="text">
-                    <a href="register.html" style="color: inherit">注册</a>
-                </div>
+            <div id="log-reg" class="ui dropdown item">
+                <!-- 发送请求获取 -->
             </div>
         </div>
     </div>
 </div>
+<script>
+    $(function () {
+       checkLog();
+    });
+    /**
+     * 判断是否登录
+     */
+    function checkLog() {
+        $.ajax({
+            type: 'get',
+            url: 'http://localhost:9527/user/check/login',
+            xhrFields:{
+                withCredentials:true
+            },
+            success: function f(data) {
+                let user = data.data;
+                if (data.code === 2000) {
+                    $('#log-reg').empty();
+                    $("#log-reg").append(`
+                    <div class="text">
+                        <img class="ui avatar image" src="` + user.imageUrl + `" alt="">
+                        ` + user.username + `
+                    </div>
+                    <i class="dropdown icon"></i>
+                    <div class="menu">
+                        <!--<a href="#" class="item" onclick="_editoData()" id="editor-data">修改资料</a>-->
+                        <!--<a href="upload_resource.html" class="item" onclick="_uploadResource()" id="editor-data">上传资源</a>-->
+                        <a href="#" class="item" id="login-out">注销</a>
+                    </div>
+                    <input id="userId" type="text" hidden value="` + user.id + `">
+                    <input id="power" type="text" hidden value="` + user.power + `">
+                    `);
+                    $('.ui.dropdown').dropdown({
+                        on: 'hover'
+                    });
+                    $('#login-out').click(function () {
+                        _loginOut();
+                    });
+                } else {
+                    $('#log-reg').empty();
+                    $('#log-reg').append(`
+                    <div class="text">
+                        <a href="login.html" style="color: inherit">登录</a>
+                    </div>
+                    <div class="text">
+                        &nbsp;&nbsp;
+                    </div>
+
+                    <div class="text">
+                        <a href="register.html" style="color: inherit">注册</a>
+                    </div>
+                `);
+                }
+            }
+        });
+    }
+
+    /**
+     * 退出登录
+     */
+    function _loginOut() {
+        $.ajax({
+            type: 'get',
+            url: 'http://localhost:9527/user/logout',
+            xhrFields:{
+                withCredentials:true
+            },
+            success: function f(data) {
+                if (data.code === 2000) {
+                    checkLog();
+                }
+            }
+        });
+    }
+</script>
 </body>
 </html>

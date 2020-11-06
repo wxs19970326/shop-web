@@ -1,3 +1,7 @@
+$('#nav').load('common_nav.html');
+$('#footer').load('common_footer.html');
+
+// 注册
 $('#register').click(function () {
     $.ajax({
         type: 'post',
@@ -16,6 +20,7 @@ $('#register').click(function () {
     });
 });
 
+// 获取验证码
 $('#get-verify').click(function () {
     var phoneNumber = $('#phone').val();
     if(phoneNumber === undefined || phoneNumber === ''){
@@ -31,9 +36,9 @@ $('#get-verify').click(function () {
     }
 });
 
-var time = 60;
-var t;
-
+// 验证码倒计时
+let time = 60;
+let t;
 function timing() {
     t = setInterval(function () {
         countdown();
@@ -52,6 +57,3 @@ function countdown(){
         time--;
     }
 }
-
-$('#nav').load('common_nav.html');
-$('#footer').load('common_footer.html');
