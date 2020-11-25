@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+    <meta charset="UTF-8">
+    <title>个人中心</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css">
+    <link rel="stylesheet" href="../static/css/mine.css">
+    <style>
+        .form {
+            width: 70%;
+            margin: 0 auto;
+        }
+
+        #username {
+            font-size: 15px;
+            font-weight: 700;
+        }
+
+        img {
+            position: absolute;
+            margin-left: -40px;
+            margin-top: 4px;
+        }
+
+        .clear-value {
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+<nav id="nav" class="ui inverted attached segment m-padded-ud-mini"></nav>
+<!--二级导航-->
+<div class="ui attached pointing menu">
+    <div class="ui container">
+        <div class="right menu">
+            <a id="upload-file" class="teal active item">上传头像</a>
+            <a id="update-password" class="item ">修改密码</a>
+        </div>
+    </div>
+</div>
+<div class="m-padded-ud-large">
+    <!--上传头像-->
+    <div class="ui container" id="upload">
+        <form id="dataForm" class="ui form" enctype="multipart/form-data" method="post"
+              action="http://localhost:9527/user/uploadfile">
+            <div class="field inp">
+                <label>用户名：</label>
+                <input id="username" type="text" name="username" readonly>
+            </div>
+            <div class="field">
+                <label>头像：</label>
+                <input id="file" type="file" name="file">
+            </div>
+
+            <div style="text-align: center;margin: 30px 0 150px 0">
+                <button class="ui blue button" id="confirm" type="submit">确定</button>
+            </div>
+        </form>
+    </div>
+    <!--修改密码-->
+    <div id="update" class="ui container" style="display: none">
+        <form id="dataForm1" class="ui form">
+            <div class="field inp">
+                <label>旧密码：</label>
+                <input id="oldpassword" class="clear-value" type="password" name="oldpassword">
+                <img src="../static/img/disshowPassword.svg" alt="" id="show1" onclick="hideShowPsw(0) ">
+            </div>
+            <div class="field">
+                <label>新密码：</label>
+                <input id="newpassword" class="clear-value" type="password" name="newpassword">
+                <img src="../static/img/disshowPassword.svg" alt="" id="show2" onclick="hideShowPsw(1) ">
+            </div>
+            <div class="field">
+                <label>确认密码：</label>
+                <input id="repassword" class="clear-value" type="password" name="repassword">
+                <img src="../static/img/disshowPassword.svg" alt="" id="show3" onclick="hideShowPsw(2) ">
+            </div>
+            <div class="field" style="text-align: right">
+                <a href="#" onclick="updateByPhone()">使用手机验证码修改</a>
+            </div>
+            <div style="text-align: center;margin: 30px 0 150px 0">
+                <button class="ui blue button" id="confirm1" type="submit">确定</button>
+                <button class="ui blue button" id="reset" type="button">重置</button>
+            </div>
+        </form>
+    </div>
+    <!--使用手机验证码-->
+    <div class="ui container" id="phonecode" style="display: none">
+        <form id="dataForm2" class="ui form">
+            <div class="field inp">
+                <label>手机号：</label>
+                <input id="phone" type="text" name="phone">
+            </div>
+            <div style="display: flex;justify-content: space-between;">
+                <div class="field" style="width: 83%;">
+                    <label>验证码：</label>
+                    <input id="code" type="text" name="code">
+                </div>
+                <div class="field" style="margin-top: 23px;">
+                    <a class="ui blue button">发送验证码</a>
+                </div>
+            </div>
+            <div style="text-align: center;margin: 30px 0 150px 0">
+                <button class="ui blue button" id="" type="submit">修改</button>
+            </div>
+        </form>
+    </div>
+</div>
+<footer id="footer" class="ui inverted vertical segment m-padded-ud-massive"></footer>
+</body>
+<script src="../static/js/jquery-3.4.1.min.js"></script>
+<script src="../static/js/common.js"></script>
+<script src="https://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.js"></script>
+<script src="http://malsup.github.io/jquery.form.js"></script>
+<script src="../static/js/personal_center.js"></script>
+
+
+</html>
