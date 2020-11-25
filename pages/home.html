@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>九八商城</title>
+    <link rel="shortcut icon" href="../static/img/logo.ico" type="image/x-icon">
 </head>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css">
 <link rel="stylesheet" href="../static/css/mine.css">
@@ -13,15 +14,21 @@
 
 <!---------------中间内容--------------------->
 <div class="m-padded-ud-large">
+    <div id="loading" class="ui active dimmer" style="display: none;">
+        <div class="ui text loader">加载中</div>
+    </div>
     <div class="ui container">
         <div class="ui grid">
-    <!------------------左边内容-------------------------------->
+            <!------------------左边内容-------------------------------->
             <div class="eleven wide column">
-                <!------------------书籍------------>
+                <!------------------热门商品------------>
                 <div class="ui attached padded segment">
                     <div class="ui middle aligned two column grid">
                         <div class="column">
-                            <h3 class="ui teal header">书籍推荐</h3>
+                            <h3 class="ui teal header">服饰推荐</h3>
+                        </div>
+                        <div class="right aligned column">
+                            共<h2 id="clothes-count" class="ui orange header m-inline-block m-text-thin">3</h2>件商品
                         </div>
                     </div>
                 </div>
@@ -37,7 +44,7 @@
                 <div class="ui bottom attached segment">
                     <div class="ui middle aligned one column grid">
                         <div class="center aligned column">
-                            <a href="book_list.html" class="ui teal basic button">更多相关书籍</a>
+                            <a href="book_list.html" class="ui teal basic button">更多潮牌</a>
                         </div>
                     </div>
                 </div>
@@ -47,10 +54,10 @@
                 <div class="ui top attached segment">
                     <div class="ui middle aligned two column grid">
                         <div class="column">
-                            <h3 class="ui teal header">博客</h3>
+                            <h3 class="ui teal header">美妆推荐</h3>
                         </div>
                         <div class="right aligned column">
-                            共<h2 id="blog-count" class="ui orange header m-inline-block m-text-thin"></h2>篇
+                            共<h2 id="makeUp-count" class="ui orange header m-inline-block m-text-thin">3</h2>件商品
                         </div>
                     </div>
                 </div>
@@ -62,38 +69,38 @@
                 <div class="ui bottom attached segment">
                     <div class="ui middle aligned one column grid">
                         <div class="center aligned column">
-                            <a href="blog_list.html" class="ui teal basic button">更多相关文章</a>
+                            <a href="blog_list.html" class="ui teal basic button">更多好物</a>
                         </div>
                     </div>
                 </div>
             </div>
-    <!--------------右边内容------------------------------------->
+            <!--------------右边内容------------------------------------->
             <div class="five wide column">
                 <div class="ui segments">
                     <div class="ui secondary segment">
                         <div class="ui two column grid">
                             <div class="column">
-                                <i class="idea icon"></i>最新书籍
+                                <i class="idea icon"></i>热门商品
                             </div>
                             <div class="right aligned column">
-                                <a href="book_list.html">more <i class="angle double right icon"></i></a>
+                                <a href="book_list.html">更多 <i class="angle double right icon"></i></a>
                             </div>
                         </div>
                     </div>
                     <div class="ui teal segment">
-                    <div id="bookPush" class="ui fluid vertical menu">
+                        <div id="bookPush" class="ui fluid vertical menu">
 
+                        </div>
                     </div>
-                </div>
                 </div>
                 <div class="ui segments">
                     <div class="ui secondary segment">
                         <div class="ui two column grid">
                             <div class="column">
-                                <i class="idea icon"></i>热门资源
+                                <i class="idea icon"></i>最新上架
                             </div>
                             <div class="right aligned column">
-                                <a href="eBook_list.html">more <i class="angle double right icon"></i></a>
+                                <a href="eBook_list.html">更多 <i class="angle double right icon"></i></a>
                             </div>
                         </div>
                     </div>
@@ -103,28 +110,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="ui segments">
-                    <div class="ui secondary segment">
-                        <div class="ui two column grid">
-                            <div class="column">
-                                <i class="idea icon"></i>最新博客
-                            </div>
-                            <div class="right aligned column">
-                                <a href="blog_list.html">more <i class="angle double right icon"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="ui teal segment">
-                        <div id="blogPush" class="ui fluid vertical menu">
-
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
 </div>
-
 <!-------------------底部内容-------------------->
 <footer id="footer" class="ui inverted vertical segment m-padded-ud-massive"></footer>
 

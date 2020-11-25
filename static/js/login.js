@@ -56,7 +56,7 @@ $('#login').click(function () {
         },
         success: function f(res) {
             if (res.code === 2000) {
-                // $('#loading').css('display', 'none');
+                $('#loading').css('display', 'none');
                 // $('#nav').load('common_nav.html');
                 location.href = 'home.html'
             } else {
@@ -66,6 +66,11 @@ $('#login').click(function () {
                 $('.ui.modal').modal('show');
             }
 
+        },
+        error: function e() {
+            alert("失败");
+            $('#loading').css('display', 'none');
+            window.reload();
         }
     });
 });
