@@ -4,15 +4,21 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
+<style>
+    .dynamic-nav {
+        display: flex;
+        margin: 0;
+        padding: 0;
+    }
+</style>
 <body>
 <div class="ui container">
     <div class="ui inverted secondary menu">
         <h2 class="ui teal header item">九八商城</h2>
         <a href="home.html" class="item"><i class="home icon"></i>首页</a>
-        <a href="book_list.html" class="item"><i class="get pocket icon"></i>衣柜</a>
-        <a href="eBook_list.html" class="item"><i class="vk icon"></i>美妆</a>
-        <a href="blog_list.html" class="item"><i class="paper plane icon"></i>出行</a>
-        <a href="editor.html" class="item"><i class="thumbs up outline icon"></i>特价</a>
+        <div class="dynamic-nav">
+            <!-- 动态加载导航 -->
+        </div>
         <a href="cart.html" class="item"><i class="cart icon"></i>购物车</a>
         <a href="cart.html" class="item"><i class="heart icon"></i>收藏夹</a>
         <div class="right item">
@@ -24,70 +30,73 @@
 </div>
 <script>
     $(function () {
-       checkLog();
+        // 加载导航栏
+        loadNav();
+        // 检查是否登陆
+        checkLog();
     });
-    /**
-     * 判断是否登录
-     */
+
+    // 加载导航栏
+    function loadNav() {
+        $.ajax({
+            type: 'get',
+            url: 'http://localhost:9527/goods/get/nav',
+            xhrFields: {
+                withCredentials: true
+            },
+            success: function (res) {
+                let categories = res.data;
+                $('.dynamic-nav').empty();
+                for (let category of categories) {
+                    $('.dynamic-nav').append(`
+                    <a class="item" onclick="go2GoodsList(${category.id})">
+                        <i class="${category.icon} icon"></i>${category.name}
+                    </a>
+                    `);
+                }
+
+            }
+        })
+    }
+
+    // 根据导航栏跳转至商品列表
+    function go2GoodsList(categoryId) {
+        window
+    }
+
+    // 判断是否登录
     function checkLog() {
         $.ajax({
             type: 'get',
             url: 'http://localhost:9527/user/check/login',
-            xhrFields:{
-                withCredentials:true
+            xhrFields: {
+                withCredentials: true
             },
             success: function f(data) {
                 let user = data.data;
                 if (data.code === 2000) {
-                    $('#log-reg').empty();
-                    $("#log-reg").append(`
-                    <div class="text">
-                        <img class="ui avatar image" src="` + user.imageUrl + `" alt="">
-                        ` + user.username + `
-                    </div>
-                    <i class="dropdown icon"></i>
-                    <div class="menu">
-                        <!--<a href="#" class="item" onclick="_editoData()" id="editor-data">修改资料</a>-->
-                        <!--<a href="upload_resource.html" class="item" onclick="_uploadResource()" id="editor-data">上传资源</a>-->
-                        <a href="#" class="item" id="login-out">注销</a>
-                    </div>
-                    <input id="userId" type="text" hidden value="` + user.id + `">
-                    <input id="power" type="text" hidden value="` + user.power + `">
-                    `);
-                    $('.ui.dropdown').dropdown({
-                        on: 'hover'
-                    });
-                    $('#login-out').click(function () {
-                        _loginOut();
-                    });
+                    loadUserInfo(user);
+                    return null;
                 } else {
-                    $('#log-reg').empty();
-                    $('#log-reg').append(`
-                    <div class="text">
-                        <a href="login.html" style="color: inherit">登录</a>
-                    </div>
-                    <div class="text">
-                        &nbsp;&nbsp;
-                    </div>
-
-                    <div class="text">
-                        <a href="register.html" style="color: inherit">注册</a>
-                    </div>
-                `);
+                    loadLogInOut();
+                    return null;
                 }
+            },
+            error: function () {
+                loadLogInOut();
+                return null;
             }
         });
+        loadLogInOut();
     }
 
-    /**
-     * 退出登录
-     */
-    function _loginOut() {
+    // 退出登录
+    function _logOut() {
         $.ajax({
             type: 'get',
             url: 'http://localhost:9527/user/logout',
-            xhrFields:{
-                withCredentials:true
+            xhrFields: {
+                withCredentials: true
             },
             success: function f(data) {
                 if (data.code === 2000) {
@@ -95,6 +104,48 @@
                 }
             }
         });
+    }
+
+    // 登陆状态加载右上角用户信息
+    function loadUserInfo(user) {
+        $('#log-reg').empty();
+        $("#log-reg").append(`
+            <div class="text">
+                <img class="ui avatar image" src="` + user.imageUrl + `" alt="">
+                ` + user.username + `
+            </div>
+            <i class="dropdown icon"></i>
+            <div class="menu">
+                <!--<a href="#" class="item" onclick="_editoData()" id="editor-data">修改资料</a>-->
+                <!--<a href="upload_resource.html" class="item" onclick="_uploadResource()" id="editor-data">上传资源</a>-->
+                <a href="#" class="item" id="login-out">注销</a>
+            </div>
+            <input id="userId" type="text" hidden value="` + user.id + `">
+            <input id="power" type="text" hidden value="` + user.power + `">
+        `);
+        $('.ui.dropdown').dropdown({
+            on: 'hover'
+        });
+        $('#login-out').click(function () {
+            _logOut();
+        });
+    }
+
+    // 加载登陆 注册按钮
+    function loadLogInOut() {
+        $('#log-reg').empty();
+        $('#log-reg').append(`
+            <div class="text">
+                <a href="login.html" style="color: inherit">登录</a>
+            </div>
+            <div class="text">
+                &nbsp;&nbsp;
+            </div>
+
+            <div class="text">
+                <a href="register.html" style="color: inherit">注册</a>
+            </div>
+        `);
     }
 </script>
 </body>
