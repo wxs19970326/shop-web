@@ -1,10 +1,11 @@
 $(function () {
     var username=window.localStorage.getItem('username');
     $('#username').val(username);
+    //document.cookie获取到所有的cookie
+    $('#cookies').val(document.cookie);
     //上传头像
     $('#dataForm').ajaxForm(function (data) {
         if (data.code === 2000) {
-            alert("上传成功！")
             window.location.reload()
         } else {
             alert(data.message)

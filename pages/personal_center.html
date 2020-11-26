@@ -41,18 +41,22 @@
 <div class="m-padded-ud-large">
     <!--上传头像-->
     <div class="ui container" id="upload">
+        <!--enctype="multipart/form-data"表示表单有多种数据构成，既有文本，又有二进制-->
         <form id="dataForm" class="ui form" enctype="multipart/form-data" method="post"
               action="http://localhost:9527/user/uploadfile">
             <div class="field inp">
                 <label>用户名：</label>
+                <!--这里踩过一个坑 不能用disabled 用那个的话往后台传，username为null-->
                 <input id="username" type="text" name="username" readonly>
             </div>
             <div class="field">
                 <label>头像：</label>
+                <!--为了把cookie携带过去 ajaxForm提交没办法携带cookie 值通过js赋-->
+                <input id="cookies" type="text" name="cookies" hidden>
                 <input id="file" type="file" name="file">
             </div>
-
             <div style="text-align: center;margin: 30px 0 150px 0">
+                <!--type必须为submit-->
                 <button class="ui blue button" id="confirm" type="submit">确定</button>
             </div>
         </form>
@@ -110,6 +114,7 @@
 </body>
 <script src="../static/js/jquery-3.4.1.min.js"></script>
 <script src="../static/js/common.js"></script>
+<script src="../static/js/jquery.cookie.js"></script>
 <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.js"></script>
 <script src="http://malsup.github.io/jquery.form.js"></script>
 <script src="../static/js/personal_center.js"></script>
