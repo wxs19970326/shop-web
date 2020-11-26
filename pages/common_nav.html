@@ -9,7 +9,7 @@
     <div class="ui inverted secondary menu">
         <h2 class="ui teal header item">九八商城</h2>
         <a href="home.html" class="item"><i class="home icon"></i>首页</a>
-        <div class="dynamic-nav">
+        <div class="dynamic-nav" style="display: flex; margin: 0; padding: 0">
             <!-- 动态加载导航 -->
         </div>
         <a href="cart.html" class="item"><i class="cart icon"></i>购物车</a>
@@ -33,7 +33,7 @@
     function loadNav() {
         $.ajax({
             type: 'get',
-            url: 'http://localhost:9527/goods/get/nav',
+            url: 'http://localhost:9527/product/category/get/nav',
             xhrFields: {
                 withCredentials: true
             },
@@ -54,7 +54,7 @@
 
     // 根据导航栏跳转至商品列表
     function go2GoodsList(categoryId) {
-        window
+        // window
     }
 
     // 判断是否登录
