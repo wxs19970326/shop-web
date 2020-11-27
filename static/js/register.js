@@ -5,16 +5,17 @@ $('#footer').load('common_footer.html');
 $('#register').click(function () {
     $.ajax({
         type: 'post',
-        url: 'http://localhost:8888/pages/login',
+        url: 'http://localhost:9527/user/register',
         data: $('#dataForm').serialize(),
         xhrFields:{
             withCredentials:true
         },
-        success: function f(data) {
-            if (data.status === 0) {
-                window.history.go(-1);
-            } else if (data.status === 1) {
-                alert(data.message)
+        success: function f(vo) {
+            if (vo.code === 2000) {
+                alert("注册成功，请登录！")
+                window.location.href='login.html';
+            } else {
+                alert(vo.message)
             }
         }
     });
@@ -31,7 +32,21 @@ $('#get-verify').click(function () {
             alert("手机号码有误，请重填");
             return
         } else {
-            timing();
+            $.ajax({
+                type: 'post',
+                url : 'http://localhost:9527/user/getCaptcha',
+                data:{phone:$('#phone').val()},
+                xhrFields:{
+                    withCredentials:true
+                },
+                success:function (vo) {
+                    if (vo.code === 2000){
+                        timing()
+                    } else {
+                        alert(vo.message)
+                    }
+                }
+            })
         }
     }
 });

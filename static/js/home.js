@@ -2,6 +2,7 @@ $('#nav').load('common_nav.html');
 $('#footer').load('common_footer.html');
 
 $(function () {
+    // alert("为了方便您的使用，请先实名认证")
     $('#loading').css('display', 'block');
     loadClothes();
     loadCosmetics();
@@ -14,7 +15,7 @@ $(function () {
 function loadClothes() {
     $.ajax({
         type: 'post',
-        url: 'http://localhost:9527/user/login',
+        url: '',
         data: $('#dataForm').serialize(),
         xhrFields: {
             withCredentials: true
@@ -33,7 +34,7 @@ function loadClothes() {
 function loadCosmetics() {
     $.ajax({
         type: 'post',
-        url: 'http://localhost:9527/user/login',
+        url: '',
         data: $('#dataForm').serialize(),
         xhrFields: {
             withCredentials: true
@@ -52,7 +53,7 @@ function loadCosmetics() {
 function loadHotProduct() {
     $.ajax({
         type: 'post',
-        url: 'http://localhost:9527/user/login',
+        url: '',
         data: $('#dataForm').serialize(),
         xhrFields: {
             withCredentials: true
@@ -71,7 +72,7 @@ function loadHotProduct() {
 function loadNewestProduct() {
     $.ajax({
         type: 'post',
-        url: 'http://localhost:9527/user/login',
+        url: '',
         data: $('#dataForm').serialize(),
         xhrFields: {
             withCredentials: true

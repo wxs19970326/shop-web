@@ -12,7 +12,7 @@
 <div class="m-padded-ud-large">
     <div class="ui container">
         <div id="login-header"><h2>用户注册</h2></div>
-        <form id="dataForm" class="ui form" method="post">
+        <form id="dataForm" class="ui form">
             <div class="field inp">
                 <input id="username" type="text" name="username" placeholder="请输入用户名">
             </div>
@@ -20,14 +20,14 @@
                 <input id="password" type="password" name="password" placeholder="请输入密码">
             </div>
             <div class="field inp">
-                <input id="password2" type="password" name="password" placeholder="请确认密码">
+                <input id="password2" type="password" name="rePassword" placeholder="请确认密码">
             </div>
             <div class="field inp">
-                <input id="phone" type="text" name="phone" placeholder="请输入手机号">
+                <input id="phone" type="text" name="telphone" placeholder="请输入手机号">
             </div>
             <div class="field inp">
                 <div class="ui input">
-                    <input type="text" placeholder="验证码">
+                    <input type="text" placeholder="验证码" name="code">
                     <button id="get-verify" type="button" class="ui button">获取验证码</button>
                 </div>
             </div>
@@ -37,10 +37,11 @@
                     <label>记住密码</label>
                 </div>
             </div>
+            <div style="text-align: center;margin: 30px 0 150px 0">
+                <button class="ui blue button" id="register" type="button">注 册</button>
+            </div>
         </form>
-        <div style="text-align: center;margin: 30px 0 150px 0">
-            <button class="ui blue button" id="register">注 册</button>
-        </div>
+
     </div>
 </div>
 

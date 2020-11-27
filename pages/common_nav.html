@@ -70,6 +70,7 @@
                 if (data.code === 2000) {
                     loadUserInfo(user);
                     window.localStorage.setItem('username',  user.username);
+                    window.localStorage.setItem('id',  user.id);
                     return null;
                 } else {
                     loadLogInOut();

@@ -11,40 +11,132 @@ $(function () {
             alert(data.message)
         }
     })
+    //修改密码
+    $('#comfirm').click(function () {
+        updatePasswordByOldPassword();
+    })
+    //获取验证码
+    $('#get-verify').click(function () {
+        getCode();
+    })
+    //实名认证
+    $('#vertify').click(function () {
+        certification();
+    })
     //二级菜单切换
     $('#update-password').click(function () {
-        updatePassword();
+        toUpdatePassword();
     })
     $('#upload-file').click(function () {
-        uploadFile()
+        toUploadFile()
+    })
+    $('#real-name-authentication').click(function () {
+        toRealName()
     })
     //重置
-    $('#reset').click(function () {
-        $('.clear-value').val('');
+    $('.reset').click(function () {
+        reset()
     })
 })
-//使用手机验证码
-function updateByPhone(){
-    $('#phonecode').css('display', 'block');
-    $('#update').css('display', 'none');
-}
 
+
+/****************切换********************/
 //切换为修改密码
-function updatePassword() {
+function toUpdatePassword() {
     $('#update').css('display', 'block');
     $('#upload').css('display', 'none');
+    $('#certification').css('display', 'none');
     $('#upload-file').removeClass("active");
+    $('#real-name-authentication').removeClass("active");
     $('#update-password').addClass("active");
 }
 //切换为上传头像
-function uploadFile() {
+function toUploadFile() {
     $('#update').css('display', 'none');
-    $('#phonecode').css('display', 'none');
+    $('#certification').css('display', 'none');
     $('#upload').css('display', 'block');
     $('#update-password').removeClass("active");
+    $('#real-name-authentication').removeClass("active");
     $('#upload-file').addClass("active");
 }
-//获取input框内的切换图片id和input文本框的id
+//切换实名认证
+function toRealName() {
+    $('#update').css('display', 'none');
+    $('#upload').css('display', 'none');
+    $('#certification').css('display', 'block');
+    $('#update-password').removeClass("active");
+    $('#upload-file').removeClass("active");
+    $('#real-name-authentication').addClass("active");
+}
+/****************切换********************/
+
+/****************功能********************/
+//修改密码
+function updatePasswordByOldPassword() {
+    if ($('#oldpassword').val() == "" || $('#newpassword').val() == "" ||
+        $('#repassword').val() == "") {
+        alert("必填项不能为空！")
+        return;
+    }
+
+    if ($('#newpassword').val() != $('#repassword').val()) {
+        alert("两次密码输入不一致,请重新输入！");
+    }else {
+        $.ajax({
+            type: 'post',
+            url : 'http://localhost:9527/user/updatePasswordByOldPassword',
+            data:$('#dataForm1').serialize(),
+            xhrFields:{
+                withCredentials:true
+            },
+            success:function (vo) {
+                if (vo.code === 2000){
+                    alert("修改成功");
+                    window.location.href='login.html';
+                   // reset();
+                } else {
+                    alert(vo.message)
+                }
+            }
+        })
+    }
+
+}
+//实名认证
+function certification(){
+    var id=window.localStorage.getItem('id');
+    $('#user').val(id)
+    if ($('#name').val() == "") {
+        alert("姓名不能为空！")
+    }else if ($('#idcard').val() == "") {
+        alert("身份证不能为空！")
+    }else if ($('#sex').val() == "") {
+        alert("性别不能为空！")
+    } else {
+        $.ajax({
+            type: 'post',
+            url : 'http://localhost:9527/user/certify',
+            data:$('#dataForm3').serialize(),
+            xhrFields:{
+                withCredentials:true
+            },
+            success:function (vo) {
+                if (vo.code === 2000){
+                    alert("恭喜您，认证成功！")
+                } else {
+                    alert(vo.message)
+                }
+            }
+        })
+    }
+}
+/****************功能********************/
+
+//重置
+function reset() {
+    $('.clear-value').val('');
+}
+//密码显隐
 var show = $("img[id^='show']"); //以show来头
 var input = $("input[id$='password']"); //以password结尾
 function hideShowPsw(showId) {

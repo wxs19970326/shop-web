@@ -35,6 +35,7 @@
         <div class="right menu">
             <a id="upload-file" class="teal active item">上传头像</a>
             <a id="update-password" class="item ">修改密码</a>
+            <a id="real-name-authentication" class="item ">实名认证</a>
         </div>
     </div>
 </div>
@@ -57,7 +58,7 @@
             </div>
             <div style="text-align: center;margin: 30px 0 150px 0">
                 <!--type必须为submit-->
-                <button class="ui blue button" id="confirm" type="submit">确定</button>
+                <button class="ui blue button" type="submit">确定</button>
             </div>
         </form>
     </div>
@@ -65,47 +66,50 @@
     <div id="update" class="ui container" style="display: none">
         <form id="dataForm1" class="ui form">
             <div class="field inp">
-                <label>旧密码：</label>
-                <input id="oldpassword" class="clear-value" type="password" name="oldpassword">
+                <label><font style="color: red">*</font>旧密码：</label>
+                <input id="oldpassword" class="clear-value" type="password" name="oldPassword">
                 <img src="../static/img/disshowPassword.svg" alt="" id="show1" onclick="hideShowPsw(0) ">
             </div>
             <div class="field">
-                <label>新密码：</label>
-                <input id="newpassword" class="clear-value" type="password" name="newpassword">
+                <label><font style="color: red">*</font>新密码：</label>
+                <input id="newpassword" class="clear-value" type="password" name="newPassword">
                 <img src="../static/img/disshowPassword.svg" alt="" id="show2" onclick="hideShowPsw(1) ">
             </div>
             <div class="field">
-                <label>确认密码：</label>
-                <input id="repassword" class="clear-value" type="password" name="repassword">
+                <label><font style="color: red">*</font>确认密码：</label>
+                <input id="repassword" class="clear-value" type="password" name="rePassword">
                 <img src="../static/img/disshowPassword.svg" alt="" id="show3" onclick="hideShowPsw(2) ">
             </div>
-            <div class="field" style="text-align: right">
-                <a href="#" onclick="updateByPhone()">使用手机验证码修改</a>
-            </div>
             <div style="text-align: center;margin: 30px 0 150px 0">
-                <button class="ui blue button" id="confirm1" type="submit">确定</button>
-                <button class="ui blue button" id="reset" type="button">重置</button>
+                <button class="ui blue button" id="comfirm" type="button">确定</button>
+                <button class="ui blue button reset" type="button">重置</button>
             </div>
         </form>
     </div>
-    <!--使用手机验证码-->
-    <div class="ui container" id="phonecode" style="display: none">
-        <form id="dataForm2" class="ui form">
+    <!--实名认证-->
+    <div id="certification" class="ui container" style="display: none">
+        <form id="dataForm3" class="ui form">
+            <input id="user" class="clear-value" type="text" name="id" hidden>
             <div class="field inp">
-                <label>手机号：</label>
-                <input id="phone" type="text" name="phone">
+                <label><font style="color: red">*</font>姓名：</label>
+                <input id="name" class="clear-value" type="text" name="name">
             </div>
-            <div style="display: flex;justify-content: space-between;">
-                <div class="field" style="width: 83%;">
-                    <label>验证码：</label>
-                    <input id="code" type="text" name="code">
-                </div>
-                <div class="field" style="margin-top: 23px;">
-                    <a class="ui blue button">发送验证码</a>
-                </div>
+            <div class="field">
+                <label><font style="color: red">*</font>身份证：</label>
+                <input id="idcard" class="clear-value" type="text" name="idcard">
+            </div>
+            <div class="field">
+                <label>性别：</label>
+                <input id="man" class="clear-value" type="radio" name="sex" value="男">男 &nbsp;
+                <input id="woman" class="clear-value" type="radio" name="sex" value="女">女
+            </div>
+            <div class="field" >
+                <label>邮箱：</label>
+                <input id="email" class="clear-value" type="email" name="email">
             </div>
             <div style="text-align: center;margin: 30px 0 150px 0">
-                <button class="ui blue button" id="" type="submit">修改</button>
+                <button class="ui blue button" id="vertify" type="button">提交</button>
+                <button class="ui blue button reset"  type="button">重置</button>
             </div>
         </form>
     </div>
@@ -114,7 +118,6 @@
 </body>
 <script src="../static/js/jquery-3.4.1.min.js"></script>
 <script src="../static/js/common.js"></script>
-<script src="../static/js/jquery.cookie.js"></script>
 <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.js"></script>
 <script src="http://malsup.github.io/jquery.form.js"></script>
 <script src="../static/js/personal_center.js"></script>
