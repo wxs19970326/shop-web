@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
+<style>
+    .log {}
+</style>
 <body>
 <div class="ui container">
     <div class="ui inverted secondary menu">
@@ -15,7 +18,7 @@
         <a href="cart.html" class="item"><i class="cart icon"></i>购物车</a>
         <a href="cart.html" class="item"><i class="heart icon"></i>收藏夹</a>
         <div class="right item">
-            <div id="log-reg" class="ui dropdown item">
+            <div id="log-reg" class="ui dropdown log item">
                 <!-- 发送请求获取 -->
             </div>
         </div>
@@ -54,7 +57,8 @@
 
     // 根据导航栏跳转至商品列表
     function go2GoodsList(categoryId) {
-        // window
+        window.localStorage.setItem('categoryId',  categoryId);
+        window.location.href = 'goods_list.html';
     }
 
     // 判断是否登录
@@ -118,7 +122,7 @@
             <input id="userId" type="text" hidden value="` + user.id + `">
             <input id="power" type="text" hidden value="` + user.power + `">
         `);
-        $('.ui.dropdown').dropdown({
+        $('.ui.dropdown.log').dropdown({
             on: 'hover'
         });
         $('#login-out').click(function () {
