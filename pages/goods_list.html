@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+    <meta charset="UTF-8">
+    <title>北科教育</title>
+</head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css">
+<link rel="stylesheet" href="../static/css/mine.css">
+<style>
+    .left-nav {}
+</style>
+<body>
+<!------------------导航--------------------->
+<nav id="nav" class="ui inverted attached segment m-padded-ud-mini"></nav>
+
+<!---------------中间内容--------------------->
+<div class="m-padded-ud-large">
+    <div class="ui container">
+        <div class="ui grid">
+
+            <!--------------左边内容------------------------------------->
+            <div class="four wide column">
+                <!--<div id="category_list" class="ui segments">-->
+                    <div id="categories" class="ui vertical menu" style="width: 85%">
+                        <div class="ui dropdown item">
+                            暂无分类
+                        </div>
+                    </div>
+                    <!--<div class="ui secondary segment">-->
+                        <!--<div class="ui two column grid">-->
+
+                        <!--</div>-->
+                    <!--</div>-->
+
+                <!--</div>-->
+            </div>
+            <!------------------右边内容-------------------------------->
+            <div class="twelve wide column">
+                <!------------------书籍------------>
+                <div class="ui attached padded segment">
+                    <div class="ui middle aligned two column grid">
+                        <div class="column">
+                            <h3 id="desc" class="ui teal header">正在加载</h3>
+                        </div>
+                    </div>
+                </div>
+                <!--书籍列表-->
+                <div class="ui attached padded segment">
+                    <div class="ui padded vertical segment m-padded-ud-large">
+                        <div id="book_list" class="teal ui grid">
+                        <!-- 右ajax发送请求获取内容 -->
+                            <div style="width: 100%;text-align: center">
+                                <div class="ui teal header">暂无商品...</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 书籍底部分页 -->
+                <div class="ui bottom attached segment">
+                    <div id="pages" class="ui middle aligned two column grid">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-------------------底部内容-------------------->
+<footer id="footer" class="ui inverted vertical segment m-padded-ud-massive"></footer>
+
+<script src="../static/js/jquery-3.4.1.min.js"></script>
+<script src="../static/js/common.js"></script>
+<script src="https://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.js"></script>
+<script src="../static/js/goods_list.js"></script>
+<script>
+
+    /**
+     * 加载首页图书推荐方法
+     */
+    function _loadBookList() {
+        $.ajax({
+            type: 'get',
+            url: 'http://localhost:8888/book/list',
+            xhrFields:{
+                withCredentials:true
+            },
+            success: function f(data) {
+                if (data.status === 0) {
+                    let pageInfo = data.data;
+                    let lists = pageInfo.list;
+                    if (lists == null) {
+                        $('#book_list').append(`<h1>服务器出错啦~~</h1>`);
+                    }
+                    $('#book_list').empty();
+                    for(let list of lists) {
+                        $('#book_list').append(`
+                        <div class="four wide column">
+                                <a onclick="goBookDetail(` + list.id + `)" style="cursor: pointer">
+                                    <img src="` + list.mainImage + `" style="width: 250px;height: 220px" class="ui rounded image">
+                                </a>
+                                <div class="m-padded-ud-tiny"><a href="#" class="ui header">` + list.name + `</a></div>
+                                <p class="m-text-thin" style="padding-top: 0.3em">作者:` + list.author + `</p>
+                                <p style="font-size: 20px;color: red;">` + list.price + `￥</p>
+                            </div>
+                        `);
+                    }
+                    if (pageInfo.isFirstPage && !pageInfo.isLastPage) {
+                        $('#pages').empty();
+                        $('#pages').append(`
+                            <div class="column">
+                                <a class="ui mini teal basic button">上一页</a>
+                            </div>
+                            <div class="right aligned column">
+                                <a onclick="_nextPage(` + pageInfo.nextPage + `)" class="ui mini teal basic button">下一页</a>
+                            </div>
+                            `);
+                    } else if (!pageInfo.isFirstPage && pageInfo.isLastPage) {
+                        $('#pages').empty();
+                        $('#pages').append(`
+                            <div class="column">
+                                <a onclick="_prePage(` + pageInfo.prePage + `)" class="ui mini teal basic button">上一页</a>
+                            </div>
+                            <div class="right aligned column">
+                                <a class="ui mini teal basic button">下一页</a>
+                            </div>
+                            `);
+                    } else if (pageInfo.isFirstPage && pageInfo.isLastPage) {
+                        $('#pages').empty();
+                        $('#pages').append(`
+                            <div class="column">
+                                <a onclick="_prePage(` + pageInfo.prePage + `)" class="ui mini teal basic button">上一页</a>
+                            </div>
+                            <div class="right aligned column">
+                                <a  onclick="_nextPage(` + pageInfo.nextPage + `)" class="ui mini teal basic button">下一页</a>
+                            </div>
+                            `);
+                    } else if (!pageInfo.isFirstPage && !pageInfo.isLastPage) {
+                        $('#pages').empty();
+                        $('#pages').append(`
+                        <div class="column">
+                            <a class="ui mini teal basic button">上一页</a>
+                        </div>
+                        <div class="right aligned column">
+                            <a class="ui mini teal basic button">下一页</a>
+                        </div>
+                        `);
+                    }
+                } else if (data.status === 1) {
+                    $('#book_list').append(`<h1>服务器出错啦~~</h1>`);
+                }
+            }
+        });
+    }
+
+    /**
+     * 加载分类的方法
+     */
+    function _loadCategory() {
+        $.ajax({
+            type: 'post',
+            url: 'http://localhost:8888/category/get_category',
+            xhrFields:{
+                withCredentials:true
+            },
+            success: function f(data) {
+                if (data.status === 0) {
+                    let lists = data.data;
+                    if (lists == null) {
+                        $('#category_list').append(`<h1>服务器出错啦~~</h1>`);
+                    }
+                    for(let list of lists) {
+                        $('#category_list').append(`
+                        <div class="ui segment m-padded-lr-mini">
+                            <div class="ui one column grid">
+                                <div class="column">
+                                    <p id=" ` + list.id + ` ">
+                                        <i class="mouse pointer icon"></i>
+                                        <a onclick="_getBookListById(` + list.id + `)" style="color: black;font-size: 20px;opacity: 0.78;cursor: pointer">` + list.name + `</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        `);
+                    }
+                } else if (data.status === 1) {
+                    $('#book_list').append(`<h1>服务器出错啦~~</h1>`);
+                }
+            }
+        });
+    }
+
+    /**
+     *  上一页事件
+     */
+    function _prePage(prePage) {
+        console.log('上一页为' + prePage);
+        $.ajax({
+            type: 'get',
+            url: 'http://localhost:8888/book/list',
+            xhrFields:{
+                withCredentials:true
+            },
+            data: {'pageNum': prePage},
+            success: function f(data) {
+                if (data.status === 0) {
+                    let pageInfo = data.data;
+                    let lists = pageInfo.list;
+                    if (lists == null) {
+                        $('#book_list').append(`<h1>服务器出错啦~~</h1>`);
+                    }
+                    $('#book_list').empty();
+                    for(let list of lists) {
+                        $('#book_list').append(`
+                        <div class="four wide column">
+                                <a onclick="goBookDetail(` + list.id + `)" style="cursor: pointer">
+                                    <img src="` + list.mainImage + `" style="width: 250px;height: 220px" class="ui rounded image">
+                                </a>
+                                <div class="m-padded-ud-tiny"><a href="#" class="ui header">` + list.name + `</a></div>
+                                <p class="m-text-thin" style="padding-top: 0.3em">作者:` + list.author + `</p>
+                                <p style="font-size: 20px;color: red;">` + list.price + `￥</p>
+                            </div>
+                        `);
+                    }
+                    if (pageInfo.isFirstPage && !pageInfo.isLastPage) {
+                        $('#pages').empty();
+                        $('#pages').append(`
+                            <div class="column">
+                                <a class="ui mini teal basic button">上一页</a>
+                            </div>
+                            <div class="right aligned column">
+                                <a onclick="_nextPage(` + pageInfo.nextPage + `)" class="ui mini teal basic button">下一页</a>
+                            </div>
+                            `);
+                    } else if (!pageInfo.isFirstPage && pageInfo.isLastPage) {
+                        $('#pages').empty();
+                        $('#pages').append(`
+                            <div class="column">
+                                <a onclick="_prePage(` + pageInfo.prePage + `)" class="ui mini teal basic button">上一页</a>
+                            </div>
+                            <div class="right aligned column">
+                                <a class="ui mini teal basic button">下一页</a>
+                            </div>
+                            `);
+                    } else if (!pageInfo.isFirstPage && !pageInfo.isLastPage) {
+                        $('#pages').empty();
+                        $('#pages').append(`
+                            <div class="column">
+                                <a onclick="_prePage(` + pageInfo.prePage + `)" class="ui mini teal basic button">上一页</a>
+                            </div>
+                            <div class="right aligned column">
+                                <a  onclick="_nextPage(` + pageInfo.nextPage + `)" class="ui mini teal basic button">下一页</a>
+                            </div>
+                            `);
+                    } else if (pageInfo.isFirstPage && pageInfo.isLastPage) {
+                        $('#pages').empty();
+                        $('#pages').append(`
+                        <div class="column">
+                            <a class="ui mini teal basic button">上一页</a>
+                        </div>
+                        <div class="right aligned column">
+                            <a class="ui mini teal basic button">下一页</a>
+                        </div>
+                        `);
+                    }
+                } else if (data.status === 1) {
+                    $('#book_list').append(`<h1>服务器出错啦~~</h1>`);
+                }
+            }
+        });
+    }
+    function _prePageById(prePage, id) {
+        $.ajax({
+            type: 'get',
+            url: 'http://localhost:8888/book/list_by_id',
+            xhrFields:{
+                withCredentials:true
+            },
+            data: {'pageNum': prePage, 'categoryId': id},
+            success: function f(data) {
+                if (data.status === 0) {
+                    let pageInfo = data.data;
+                    let lists = pageInfo.list;
+                    if (lists == null) {
+                        $('#book_list').append(`<h1>服务器出错啦~~</h1>`);
+                    }
+                    $('#book_list').empty();
+                    for(let list of lists) {
+                        $('#book_list').append(`
+                        <div class="four wide column">
+                                <a onclick="goBookDetail(` + list.id + `)" style="cursor: pointer">
+                                    <img src="` + list.mainImage + `" style="width: 250px;height: 220px" class="ui rounded image">
+                                </a>
+                                <div class="m-padded-ud-tiny"><a href="#" class="ui header">` + list.name + `</a></div>
+                                <p class="m-text-thin" style="padding-top: 0.3em">作者:` + list.author + `</p>
+                                <p style="font-size: 20px;color: red;">` + list.price + `￥</p>
+                            </div>
+                        `);
+                    }
+                    if (pageInfo.isFirstPage && !pageInfo.isLastPage) {
+                        $('#pages').empty();
+                        $('#pages').append(`
+                            <div class="column">
+                                <a class="ui mini teal basic button">上一页</a>
+                            </div>
+                            <div class="right aligned column">
+                                <a onclick="_nextPageById(` + pageInfo.nextPage + `,` + id + `)" class="ui mini teal basic button">下一页</a>
+                            </div>
+                            `);
+                    } else if (!pageInfo.isFirstPage && pageInfo.isLastPage) {
+                        $('#pages').empty();
+                        $('#pages').append(`
+                            <div class="column">
+                                <a onclick="_prePageById(` + pageInfo.prePage + `,` + id + `)" class="ui mini teal basic button">上一页</a>
+                            </div>
+                            <div class="right aligned column">
+                                <a class="ui mini teal basic button">下一页</a>
+                            </div>
+                            `);
+                    } else if (!pageInfo.isFirstPage && !pageInfo.isLastPage) {
+                        $('#pages').empty();
+                        $('#pages').append(`
+                        <div class="column">
+                            <a onclick="_prePageById(` + pageInfo.prePage + `,` + id + `)" class="ui mini teal basic button">上一页</a>
+                        </div>
+                        <div class="right aligned column">
+                            <a  onclick="_nextPageById(` + pageInfo.nextPage + `,` + id + `)" class="ui mini teal basic button">下一页</a>
+                        </div>
+                        `);
+                    } else if (pageInfo.isFirstPage && pageInfo.isLastPage) {
+                        $('#pages').empty();
+                        $('#pages').append(`
+                        <div class="column">
+                            <a class="ui mini teal basic button">上一页</a>
+                        </div>
+                        <div class="right aligned column">
+                            <a class="ui mini teal basic button">下一页</a>
+                        </div>
+                        `);
+                    }
+                } else if (data.status === 1) {
+                    $('#book_list').append(`<h1>服务器出错啦~~</h1>`);
+                }
+            }
+        });
+    }
+    /**
+     *  下一页事件
+     */
+    function _nextPage(nextPage) {
+        console.log('下一页为' + nextPage);
+        $.ajax({
+            type: 'get',
+            url: 'http://localhost:8888/book/list',
+            xhrFields:{
+                withCredentials:true
+            },
+            data: {'pageNum': nextPage},
+            success: function f(data) {
+                if (data.status === 0) {
+                    let pageInfo = data.data;
+                    let lists = pageInfo.list;
+                    console.log(lists);
+                    if (lists == null) {
+                        $('#book_list').append(`<h1>服务器出错啦~~</h1>`);
+                    }
+                    $('#book_list').empty();
+                    for(let list of lists) {
+                        $('#book_list').append(`
+                        <div class="four wide column">
+                                <a onclick="goBookDetail(` + list.id + `)" style="cursor: pointer">
+                                    <img src="` + list.mainImage + `" style="width: 250px;height: 220px" class="ui rounded image">
+                                </a>
+                                <div class="m-padded-ud-tiny"><a href="#" class="ui header">` + list.name + `</a></div>
+                                <p class="m-text-thin" style="padding-top: 0.3em">作者:` + list.author + `</p>
+                                <p style="font-size: 20px;color: red;">` + list.price + `￥</p>
+                            </div>
+                        `);
+                    }
+                    if (pageInfo.isFirstPage && !pageInfo.isLastPage) {
+                        $('#pages').empty();
+                        $('#pages').append(`
+                            <div class="column">
+                                <a class="ui mini teal basic button">上一页</a>
+                            </div>
+                            <div class="right aligned column">
+                                <a onclick="_nextPage(` + pageInfo.nextPage + `)" class="ui mini teal basic button">下一页</a>
+                            </div>
+                            `);
+                    } else if (!pageInfo.isFirstPage && pageInfo.isLastPage) {
+                        $('#pages').empty();
+                        $('#pages').append(`
+                            <div class="column">
+                                <a onclick="_prePage(` + pageInfo.prePage + `)" class="ui mini teal basic button">上一页</a>
+                            </div>
+                            <div class="right aligned column">
+                                <a class="ui mini teal basic button">下一页</a>
+                            </div>
+                            `);
+                    } else if (!pageInfo.isFirstPage && !pageInfo.isLastPage) {
+                        $('#pages').empty();
+                        $('#pages').append(`
+                            <div class="column">
+                                <a onclick="_prePage(` + pageInfo.prePage + `)" class="ui mini teal basic button">上一页</a>
+                            </div>
+                            <div class="right aligned column">
+                                <a  onclick="_nextPage(` + pageInfo.nextPage + `)" class="ui mini teal basic button">下一页</a>
+                            </div>
+                            `);
+                    } else if (pageInfo.isFirstPage && pageInfo.isLastPage) {
+                        $('#pages').empty();
+                        $('#pages').append(`
+                        <div class="column">
+                            <a class="ui mini teal basic button">上一页</a>
+                        </div>
+                        <div class="right aligned column">
+                            <a class="ui mini teal basic button">下一页</a>
+                        </div>
+                        `);
+                    }
+
+                } else if (data.status === 1) {
+                    $('#book_list').append(`<h1>服务器出错啦~~</h1>`);
+                }
+            }
+        });
+    }
+    function _nextPageById(nextPage, id) {
+        $.ajax({
+            type: 'get',
+            url: 'http://localhost:8888/book/list_by_id',
+            xhrFields:{
+                withCredentials:true
+            },
+            data: {'pageNum': nextPage, 'categoryId': id},
+            success: function f(data) {
+                if (data.status === 0) {
+                    let pageInfo = data.data;
+                    let lists = pageInfo.list;
+                    console.log(lists);
+                    if (lists == null) {
+                        $('#book_list').append(`<h1>服务器出错啦~~</h1>`);
+                    }
+                    $('#book_list').empty();
+                    for(let list of lists) {
+                        $('#book_list').append(`
+                        <div class="four wide column">
+                                <a onclick="goBookDetail(` + list.id + `)" style="cursor: pointer">
+                                    <img src="` + list.mainImage + `" style="width: 250px;height: 220px" class="ui rounded image">
+                                </a>
+                                <div class="m-padded-ud-tiny"><a href="#" class="ui header">` + list.name + `</a></div>
+                                <p class="m-text-thin" style="padding-top: 0.3em">作者:` + list.author + `</p>
+                                <p style="font-size: 20px;color: red;">` + list.price + `￥</p>
+                            </div>
+                        `);
+                    }
+                    if (pageInfo.isFirstPage && !pageInfo.isLastPage) {
+                        $('#pages').empty();
+                        $('#pages').append(`
+                            <div class="column">
+                                <a class="ui mini teal basic button">上一页</a>
+                            </div>
+                            <div class="right aligned column">
+                                <a onclick="_nextPageById(` + pageInfo.nextPage + `,` + id + `)" class="ui mini teal basic button">下一页</a>
+                            </div>
+                            `);
+                    } else if (!pageInfo.isFirstPage && pageInfo.isLastPage) {
+                        $('#pages').empty();
+                        $('#pages').append(`
+                            <div class="column">
+                                <a onclick="_prePageById(` + pageInfo.prePage + `,` + id + `)" class="ui mini teal basic button">上一页</a>
+                            </div>
+                            <div class="right aligned column">
+                                <a class="ui mini teal basic button">下一页</a>
+                            </div>
+                            `);
+                    } else if (!pageInfo.isFirstPage && !pageInfo.isLastPage) {
+                        $('#pages').empty();
+                        $('#pages').append(`
+                        <div class="column">
+                            <a onclick="_prePageById(` + pageInfo.prePage + `,` + id + `)" class="ui mini teal basic button">上一页</a>
+                        </div>
+                        <div class="right aligned column">
+                            <a  onclick="_nextPageById(` + pageInfo.nextPage + `,` + id + `)" class="ui mini teal basic button">下一页</a>
+                        </div>
+                        `);
+                    } else if (pageInfo.isFirstPage && pageInfo.isLastPage) {
+                        $('#pages').empty();
+                        $('#pages').append(`
+                        <div class="column">
+                            <a class="ui mini teal basic button">上一页</a>
+                        </div>
+                        <div class="right aligned column">
+                            <a class="ui mini teal basic button">下一页</a>
+                        </div>
+                        `);
+                    }
+
+                } else if (data.status === 1) {
+                    $('#book_list').append(`<h1>服务器出错啦~~</h1>`);
+                }
+            }
+        });
+    }
+
+    /**
+     * 页面间传递数据
+     */
+    function goBookDetail(id) {
+        location.href = 'book_detail.html';
+        window.localStorage.setItem('id', id);
+    }
+
+    /**
+     *  根据类别分页查询书籍列表
+     */
+    function _getBookListById(id) {
+        $('#id').val('style', 'background-color: red');
+        $.ajax({
+            type: 'get',
+            url: 'http://localhost:8888/book/list_by_id',
+            xhrFields:{
+                withCredentials:true
+            },
+            data: {'categoryId': id},
+            success: function f(data) {
+                if (data.status === 0) {
+                    let pageInfo = data.data;
+                    let lists = pageInfo.list;
+                    if (lists == null) {
+                        $('#book_list').append(`<h1>服务器出错啦~~</h1>`);
+                    }
+                    $('#book_list').empty();
+                    for(let list of lists) {
+                        $('#book_list').append(`
+                        <div class="four wide column">
+                                <a onclick="goBookDetail(` + list.id + `)" style="cursor: pointer">
+                                    <img src="` + list.mainImage + `" style="width: 250px;height: 220px" class="ui rounded image">
+                                </a>
+                                <div class="m-padded-ud-tiny"><a href="#" class="ui header">` + list.name + `</a></div>
+                                <p class="m-text-thin" style="padding-top: 0.3em">作者:` + list.author + `</p>
+                                <p style="font-size: 20px;color: red;">` + list.price + `￥</p>
+                            </div>
+                        `);
+                    }
+                    if (pageInfo.isFirstPage && !pageInfo.isLastPage) {
+                        $('#pages').empty();
+                        $('#pages').append(`
+                            <div class="column">
+                                <a class="ui mini teal basic button">上一页</a>
+                            </div>
+                            <div class="right aligned column">
+                                <a onclick="_nextPageById(` + pageInfo.nextPage + `,` + id + `)" class="ui mini teal basic button">下一页</a>
+                            </div>
+                            `);
+                    } else if (!pageInfo.isFirstPage && pageInfo.isLastPage) {
+                        $('#pages').empty();
+                        $('#pages').append(`
+                            <div class="column">
+                                <a onclick="_prePageById(` + pageInfo.prePage + `,` + id + `)" class="ui mini teal basic button">上一页</a>
+                            </div>
+                            <div class="right aligned column">
+                                <a class="ui mini teal basic button">下一页</a>
+                            </div>
+                            `);
+                    } else if (!pageInfo.isFirstPage && !pageInfo.isLastPage) {
+                        $('#pages').empty();
+                        $('#pages').append(`
+                        <div class="column">
+                            <a onclick="_prePageById(` + pageInfo.prePage + `,` + id + `)" class="ui mini teal basic button">上一页</a>
+                        </div>
+                        <div class="right aligned column">
+                            <a  onclick="_nextPageById(` + pageInfo.nextPage + `,` + id + `)" class="ui mini teal basic button">下一页</a>
+                        </div>
+                        `);
+                    } else if (pageInfo.isFirstPage && pageInfo.isLastPage) {
+                        $('#pages').empty();
+                        $('#pages').append(`
+                        <div class="column">
+                            <a class="ui mini teal basic button">上一页</a>
+                        </div>
+                        <div class="right aligned column">
+                            <a class="ui mini teal basic button">下一页</a>
+                        </div>
+                        `);
+                    }
+                } else if (data.status === 1) {
+                    $('#book_list').append(`<h1>服务器出错啦~~</h1>`);
+                }
+            }
+        });
+    }
+
+</script>
+</body>
+</html>

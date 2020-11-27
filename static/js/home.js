@@ -14,7 +14,7 @@ $(function () {
 function loadClothes() {
     $.ajax({
         type: 'post',
-        url: 'http://localhost:9527/user/login',
+        url: '',
         data: $('#dataForm').serialize(),
         xhrFields: {
             withCredentials: true
@@ -33,7 +33,7 @@ function loadClothes() {
 function loadCosmetics() {
     $.ajax({
         type: 'post',
-        url: 'http://localhost:9527/user/login',
+        url: '',
         data: $('#dataForm').serialize(),
         xhrFields: {
             withCredentials: true
@@ -52,7 +52,7 @@ function loadCosmetics() {
 function loadHotProduct() {
     $.ajax({
         type: 'post',
-        url: 'http://localhost:9527/user/login',
+        url: '',
         data: $('#dataForm').serialize(),
         xhrFields: {
             withCredentials: true
@@ -71,7 +71,7 @@ function loadHotProduct() {
 function loadNewestProduct() {
     $.ajax({
         type: 'post',
-        url: 'http://localhost:9527/user/login',
+        url: '',
         data: $('#dataForm').serialize(),
         xhrFields: {
             withCredentials: true
