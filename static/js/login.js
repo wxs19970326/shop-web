@@ -44,7 +44,7 @@ $('#flash-block').mousedown(function (e) {
     });
 });
 
-// 登陆
+// 登陆-用户名密码
 $('#login').click(function () {
     $('#loading').css('display', 'block');
     $.ajax({
@@ -57,7 +57,6 @@ $('#login').click(function () {
         success: function f(res) {
             if (res.code === 2000) {
                 $('#loading').css('display', 'none');
-                // $('#nav').load('common_nav.html');
                 location.href = 'home.html'
             } else {
                 $('#loading').css('display', 'none');
@@ -74,6 +73,92 @@ $('#login').click(function () {
         }
     });
 });
+// 登陆-手机号验证码
+$('#login1').click(function () {
+    $('#loading').css('display', 'block');
+    $.ajax({
+        type: 'post',
+        url: 'http://localhost:9527/user/login1',
+        data: $('#dataForm2').serialize(),
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function f(res) {
+            if (res.code === 2000) {
+                $('#loading').css('display', 'none');
+                location.href = 'home.html'
+            } else {
+                $('#loading').css('display', 'none');
+                $('#message').empty();
+                $('#message').append(`<h3>${res.message}</h3>`);
+                $('.ui.modal').modal('show');
+            }
+
+        },
+        error: function e() {
+            alert("失败");
+            $('#loading').css('display', 'none');
+            window.reload();
+        }
+    });
+})
+$('#get-verify').click(function () {
+    getCode();
+})
+// 跳转到手机号登录
+function toLoginByPhone() {
+    $('#username-password').css('display', 'none');
+    $('#phone-code').css('display', 'block');
+}
+// 跳转到用户名登录
+function toLoginByUsername() {
+    $('#username-password').css('display', 'block');
+    $('#phone-code').css('display', 'none');
+}
+//获取验证码
+function getCode() {
+    if ($('#phone').val() == "") {
+        alert("手机号不能为空！")
+    }else {
+        $.ajax({
+            type: 'post',
+            url : 'http://localhost:9527/user/getCaptcha',
+            data:$('#dataForm2').serialize(),
+            xhrFields:{
+                withCredentials:true
+            },
+            success:function (vo) {
+                if (vo.code === 2000){
+                    timing()
+                } else {
+                    alert(vo.message)
+                }
+            }
+        })
+    }
+
+}
+// 验证码倒计时
+let time = 60;
+let t;
+function timing() {
+    t = setInterval(function () {
+        countdown();
+    }, 1000);
+    countdown()
+}
+function countdown(){
+    if (time === 0) {
+        time = 60;
+        clearInterval(t);
+        $('#get-verify').removeAttr("disabled");
+        $('#get-verify').text("获取验证码");
+    }else{
+        $('#get-verify').attr('disabled',"true");
+        $('#get-verify').text("重新发送" + time);
+        time--;
+    }
+}
 //
 // //页面加载完成后执行
 // $().ready(function(){
