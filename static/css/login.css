@@ -1,9 +1,9 @@
-#login-header {
+.login-header {
     text-align: center;
     margin: 30px 0 30px 0;
 }
 
-#dataForm {
+.form {
     width: 55%;
     margin: 0 auto;
 }
