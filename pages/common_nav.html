@@ -57,7 +57,12 @@
 
     // 根据导航栏跳转至商品列表
     function go2GoodsList(categoryId) {
+        // 类别ID
         window.localStorage.setItem('categoryId',  categoryId);
+        // 页面定位标记
+        window.localStorage.setItem('pageCache-Id',  '');
+        window.localStorage.setItem('pageCache-Name',  '');
+        // go
         window.location.href = 'goods_list.html';
     }
 

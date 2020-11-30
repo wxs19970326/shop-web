@@ -1,6 +1,38 @@
 $(function () {
+    // 加载左侧栏类别
     loadCategory();
+
+    // 获取缓存条件用于刷新时重新定位到上次访问的页面
+    let cacheId = window.localStorage.getItem('pageCache-Id');
+    let cacheName = window.localStorage.getItem('pageCache-Name');
+    if (cacheId !== '' && cacheName !== '') {
+        go2ListById(cacheId,cacheName)
+    }
+
+    // 绑定滚动条事件
+    loadCatchScorll();
+    // 绑定回到顶部时间
+    bindGo2Top()
 });
+// 监听滚动条,以加载侧栏导航的位置
+function loadCatchScorll() {
+    $(document).scroll(function() {
+        var scroH = $(document).scrollTop();  //滚动高度
+        var viewH = $(window).height();  //可见高度
+        var contentH = $(document).height();  //内容高度
+        $(".nav-two").css('top', scroH + 15);
+        if (scroH === 0){}
+        if (contentH - (scroH + viewH) <= 100){}
+        if (contentH - (scroH + viewH) <= 10){}
+
+    });
+}
+// 绑定回到顶部事件
+function bindGo2Top() {
+    $('.go2top').click(function () {
+        $("html,body").animate({scrollTop:"0px"},500);//500毫秒完成回到顶部动画
+    })
+}
 // 加载分类
 function loadCategory() {
     let categoryId = window.localStorage.getItem('categoryId');
@@ -46,9 +78,14 @@ function renderingNav(categories) {
 }
 // 渲染商品区
 function go2ListById(categoryId,name) {
+    // 缓存页面条件,用于刷新时再次定位到当前页面
+    window.localStorage.setItem('pageCache-Id', categoryId);
+    window.localStorage.setItem('pageCache-Name', name);
+    // 渲染标题
     $('#desc').empty().append(name);
+    // 渲染商品
 }
 // 加载精品推荐
 function loadRecommendation(categoryId) {
-    
+
 }

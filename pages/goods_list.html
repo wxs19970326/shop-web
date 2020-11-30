@@ -6,6 +6,7 @@
 </head>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css">
 <link rel="stylesheet" href="../static/css/mine.css">
+<link rel="stylesheet" href="../static/css/goods_list.css">
 <style>
     .left-nav {}
 </style>
@@ -21,7 +22,7 @@
             <!--------------左边内容------------------------------------->
             <div class="four wide column">
                 <!--<div id="category_list" class="ui segments">-->
-                    <div id="categories" class="ui vertical menu" style="width: 85%">
+                    <div id="categories" class="ui vertical menu nav-two" style="width: 85%">
                         <div class="ui dropdown item">
                             暂无分类
                         </div>
@@ -45,12 +46,108 @@
                     </div>
                 </div>
                 <!--书籍列表-->
-                <div class="ui attached padded segment">
+                <div class="ui attached padded segment goods-content">
                     <div class="ui padded vertical segment m-padded-ud-large">
                         <div id="book_list" class="teal ui grid">
-                        <!-- 右ajax发送请求获取内容 -->
-                            <div style="width: 100%;text-align: center">
-                                <div class="ui teal header">暂无商品...</div>
+                            <!-- 右ajax发送请求获取内容 -->
+                            <!--<div style="width: 100%;text-align: center">-->
+                                <!--<div class="ui teal header">暂无商品...</div>-->
+                            <!--</div>-->
+                            <div class="four wide column">
+                                <div class="list-border">
+                                    <a onclick="goBookDetail()" style="cursor: pointer">
+                                        <img src="../static/img/bigdata.jpg" style="width: 250px;height: 220px" class="ui rounded image">
+                                    </a>
+                                </div>
+                                <div class="m-padded-ud-tiny goods-title">
+                                    <a href="#" class="ui header">大数据基础发发发发大大大发发你发士大夫士大夫首发式</a></div>
+                                <p class="m-text-thin" style="padding-top: 0.3em">作者: 王晓森</p>
+                                <p style="font-size: 20px;color: red;">￥</p>
+
+                            </div>
+                            <div class="four wide column">
+                                <div class="list-border">
+                                    <a onclick="goBookDetail()" style="cursor: pointer">
+                                        <img src="../static/img/bigdata.jpg" style="width: 250px;height: 220px" class="ui rounded image">
+                                    </a>
+                                </div>
+                                <div class="m-padded-ud-tiny goods-title">
+                                    <a href="#" class="ui header">大数据基础发发发发大大大发发你发士大夫士大夫首发式</a></div>
+                                <p class="m-text-thin" style="padding-top: 0.3em">作者: 王晓森</p>
+                                <p style="font-size: 20px;color: red;">￥</p>
+
+                            </div>
+                            <div class="four wide column">
+                                <div class="list-border">
+                                    <a onclick="goBookDetail()" style="cursor: pointer">
+                                        <img src="../static/img/bigdata.jpg" style="width: 250px;height: 220px" class="ui rounded image">
+                                    </a>
+                                </div>
+                                <div class="m-padded-ud-tiny goods-title">
+                                    <a href="#" class="ui header">大数据基础发发发发大大大发发你发士大夫士大夫首发式</a></div>
+                                <p class="m-text-thin" style="padding-top: 0.3em">作者: 王晓森</p>
+                                <p style="font-size: 20px;color: red;">￥</p>
+
+                            </div>
+                            <div class="four wide column">
+                                <div class="list-border">
+                                    <a onclick="goBookDetail()" style="cursor: pointer">
+                                        <img src="../static/img/bigdata.jpg" style="width: 250px;height: 220px" class="ui rounded image">
+                                    </a>
+                                </div>
+                                <div class="m-padded-ud-tiny goods-title">
+                                    <a href="#" class="ui header">大数据基础发发发发大大大发发你发士大夫士大夫首发式</a></div>
+                                <p class="m-text-thin" style="padding-top: 0.3em">作者: 王晓森</p>
+                                <p style="font-size: 20px;color: red;">￥</p>
+
+                            </div>
+                            <div class="four wide column">
+                                <div class="list-border">
+                                    <a onclick="goBookDetail()" style="cursor: pointer">
+                                        <img src="../static/img/bigdata.jpg" style="width: 250px;height: 220px" class="ui rounded image">
+                                    </a>
+                                </div>
+                                <div class="m-padded-ud-tiny goods-title">
+                                    <a href="#" class="ui header">大数据基础发发发发大大大发发你发士大夫士大夫首发式</a></div>
+                                <p class="m-text-thin" style="padding-top: 0.3em">作者: 王晓森</p>
+                                <p style="font-size: 20px;color: red;">￥</p>
+
+                            </div>
+                            <div class="four wide column">
+                                <div class="list-border">
+                                    <a onclick="goBookDetail()" style="cursor: pointer">
+                                        <img src="../static/img/bigdata.jpg" style="width: 250px;height: 220px" class="ui rounded image">
+                                    </a>
+                                </div>
+                                <div class="m-padded-ud-tiny goods-title">
+                                    <a href="#" class="ui header">大数据基础发发发发大大大发发你发士大夫士大夫首发式</a></div>
+                                <p class="m-text-thin" style="padding-top: 0.3em">作者: 王晓森</p>
+                                <p style="font-size: 20px;color: red;">￥</p>
+
+                            </div>
+                            <div class="four wide column">
+                                <div class="list-border">
+                                    <a onclick="goBookDetail()" style="cursor: pointer">
+                                        <img src="../static/img/bigdata.jpg" style="width: 250px;height: 220px" class="ui rounded image">
+                                    </a>
+                                </div>
+                                <div class="m-padded-ud-tiny goods-title">
+                                    <a href="#" class="ui header">大数据基础发发发发大大大发发你发士大夫士大夫首发式</a></div>
+                                <p class="m-text-thin" style="padding-top: 0.3em">作者: 王晓森</p>
+                                <p style="font-size: 20px;color: red;">￥</p>
+
+                            </div>
+                            <div class="four wide column">
+                                <div class="list-border">
+                                    <a onclick="goBookDetail()" style="cursor: pointer">
+                                        <img src="../static/img/bigdata.jpg" style="width: 250px;height: 220px" class="ui rounded image">
+                                    </a>
+                                </div>
+                                <div class="m-padded-ud-tiny goods-title">
+                                    <a href="#" class="ui header">大数据基础发发发发大大大发发你发士大夫士大夫首发式</a></div>
+                                <p class="m-text-thin" style="padding-top: 0.3em">作者: 王晓森</p>
+                                <p style="font-size: 20px;color: red;">￥</p>
+
                             </div>
                         </div>
                     </div>
@@ -58,18 +155,35 @@
                 <!-- 书籍底部分页 -->
                 <div class="ui bottom attached segment">
                     <div id="pages" class="ui middle aligned two column grid">
-                        
+                        <div class="column">
+                            <a class="ui mini teal basic button">上一页</a>
+                        </div>
+                        <div class="right aligned column">
+                            <a onclick="_nextPage()" class="ui mini teal basic button">下一页</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
+<!--<a href="javascript:void(0)" class="go2top">go</a>-->
+<div class="go2top">
+    <div class="toTop">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" class = "toTopSvg"  viewbox="0 0 64 64">
+            <path fill="#fff" d="M42.057,37.732c0,0,4.139-25.58-9.78-36.207c-0.307-0.233-0.573-0.322-0.802-0.329
+			c-0.227,0.002-0.493,0.083-0.796,0.311c-13.676,10.31-8.95,35.992-8.95,35.992c-10.18,8-7.703,9.151-1.894,23.262
+			c1.108,2.693,3.048,2.06,3.926,0.115c0.877-1.943,2.815-6.232,2.815-6.232l11.029,0.128c0,0,2.035,4.334,2.959,6.298
+			c0.922,1.965,2.877,2.644,3.924-0.024C49.974,47.064,52.423,45.969,42.057,37.732z M31.726,23.155
+			c-2.546-0.03-4.633-2.118-4.664-4.665c-0.029-2.547,2.012-4.587,4.559-4.558c2.546,0.029,4.634,2.117,4.663,4.664
+			C36.314,21.143,34.272,23.184,31.726,23.155z" class="tt"/>
+        </svg>
+    </div>
+</div>
 <!-------------------底部内容-------------------->
 <footer id="footer" class="ui inverted vertical segment m-padded-ud-massive"></footer>
 
-<script src="../static/js/jquery-3.4.1.min.js"></script>
+<script src="../static/lib/jquery-3.4.1.min.js"></script>
 <script src="../static/js/common.js"></script>
 <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.js"></script>
 <script src="../static/js/goods_list.js"></script>
