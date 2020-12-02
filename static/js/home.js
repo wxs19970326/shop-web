@@ -53,16 +53,19 @@ function loadCosmetics() {
 function loadHotProduct() {
     $.ajax({
         type: 'post',
-        url: '',
-        data: $('#dataForm').serialize(),
+        url: 'http://localhost:9527/product/main/getHot',
         xhrFields: {
             withCredentials: true
         },
-        success: function f(res) {
-            if (res.code === 2000) {
-
+        success: function f(vo) {
+            if (vo.code === 2000) {
+                let list = vo.data;
+                for (let i=0;i<list.length;i++){
+                    $('#goodsHot').append(`
+                    <div style="display:flex;margin: 5px 15px;"><a href="#" class="ui" >` + list[i].name + `</a></div>`);
+                }
             } else {
-
+                alert(vo.message)
             }
         }
     });
@@ -72,16 +75,19 @@ function loadHotProduct() {
 function loadNewestProduct() {
     $.ajax({
         type: 'post',
-        url: '',
-        data: $('#dataForm').serialize(),
+        url: 'http://localhost:9527/product/main/getLatest',
         xhrFields: {
             withCredentials: true
         },
-        success: function f(res) {
-            if (res.code === 2000) {
-
+        success: function f(vo) {
+            if (vo.code === 2000) {
+                let list = vo.data;
+                for (let i=0;i<list.length;i++){
+                    $('#goodsLatest').append(`
+                    <div style="display:flex;margin: 5px 15px;"><a href="#" class="ui" >` + list[i].name + `</a></div>`);
+                }
             } else {
-
+                alert(vo.message)
             }
         }
     });
