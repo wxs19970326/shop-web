@@ -38,16 +38,15 @@
             </div>
             <!------------------右边内容-------------------------------->
             <div class="twelve wide column">
-                <!------------------书籍------------>
+                <!------------------商品------------>
                 <div class="ui attached padded segment">
                     <div class="ui middle aligned two column grid">
                         <div class="column">
                             <h3 id="desc" class="ui teal header">正在加载</h3>
-                            <div id="categoryId" style="display: none"></div>
                         </div>
                     </div>
                 </div>
-                <!--书籍列表-->
+                <!--商品列表-->
                 <div class="ui attached padded segment goods-content">
                     <div class="ui padded vertical segment m-padded-ud-large">
                         <div id="book_list" class="teal ui grid">
@@ -55,14 +54,14 @@
                         </div>
                     </div>
                 </div>
-                <!-- 书籍底部分页 -->
+                <!-- 底部分页 -->
                 <div class="ui bottom attached segment">
                     <div id="pages" class="ui middle aligned two column grid">
                         <div class="column">
-                            <a class="ui mini teal basic button">上一页</a>
+                            <a id="pre" class="ui mini teal basic button">上一页</a>
                         </div>
                         <div class="right aligned column">
-                            <a onclick="_nextPage()" class="ui mini teal basic button">下一页</a>
+                            <a id="next" class="ui mini teal basic button">下一页</a>
                         </div>
                     </div>
                 </div>
@@ -521,15 +520,7 @@
     }
 
     /**
-     * 页面间传递数据
-     */
-    function goBookDetail(id) {
-        location.href = 'book_detail.html';
-        window.localStorage.setItem('id', id);
-    }
-
-    /**
-     *  根据类别分页查询书籍列表
+     *  根据类别分页查询商品列表
      */
     function _getBookListById(id) {
         $('#id').val('style', 'background-color: red');

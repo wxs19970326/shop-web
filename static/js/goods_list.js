@@ -7,9 +7,18 @@ $(function () {
     let cacheName = window.localStorage.getItem('pageCache-Name');
     if (cacheId !== '' && cacheName !== '') {
         go2ListById(cacheId,cacheName)
+    }else {
+        window.localStorage.setItem('currentPage','1');
     }
 
-    loadRecommendation(cacheId);
+
+    let currentPage = window.localStorage.getItem('currentPage');
+    $('#pre').click(function () {
+        prePage()
+    })
+    $('#next').click(function () {
+        nextPage()
+    })
     // 绑定滚动条事件
     loadCatchScorll();
     // 绑定回到顶部时间
@@ -85,31 +94,32 @@ function go2ListById(categoryId,name) {
     // 渲染标题
     $('#desc').empty().append(name);
     $('#categoryId').empty().append(categoryId);
-    // 渲染商品
+    // 渲染类别商品
+    loadRecommendation(categoryId);
 }
-// 加载精品推荐
+//分页查询
 function loadRecommendation(categoryId) {
-    //分页查询
+    let currentPage = window.localStorage.getItem('currentPage');
     $.ajax({
-        type:'get',
+        type:'post',
         url:'http://localhost:9527/product/main/pager',
         data: {
-            pageNum:1,
+            pageNum:currentPage,
             pageSize:8,
             categoryId:categoryId,
             hasHot:1
         },
         xhrFields:{
             withCredentials:true
-
         },
         success:function (vo) {
             let list = vo.data.list;
+            $('#book_list').empty();
             for (let i=0;i<list.length;i++){
                 $('#book_list').append(`
                         <div class="four wide column">
-                                <a onclick="goBookDetail(` + list[i].categoryId + `)" style="cursor: pointer">
-                                    <img src="` + list[i].mainImage + `" style="width: 250px;height: 220px" class="ui rounded image">
+                                <a onclick="goBookDetail(${list[i].categoryId})" style="cursor: pointer">
+                                    <img src="${list[i].mainImage}" style="width: 250px;height: 220px" class="ui rounded image">
                                 </a>
                                 <div class="m-padded-ud-tiny"><a href="#" class="ui header">` + list[i].name + `</a></div>
                                 <p class="m-text-thin" style="padding-top: 0.3em">描述:` + list[i].detail + `</p>
@@ -121,4 +131,93 @@ function loadRecommendation(categoryId) {
 
         }
     })
+}
+//上一页
+function prePage() {
+    let currentPage = window.localStorage.getItem('currentPage');
+    let categoryId = window.localStorage.getItem('pageCache-Id');
+    let temp=Number(currentPage)-1;
+    $.ajax({
+        type:'post',
+        url:'http://localhost:9527/product/main/pager',
+        data: {
+            pageNum:temp,
+            pageSize:8,
+            categoryId:categoryId,
+            hasHot:1
+        },
+        xhrFields:{
+            withCredentials:true
+
+        },
+        success:function (vo) {
+            let list = vo.data.list;
+            let data = vo.data;
+            if (Number(data.pageNum) < 1){
+                alert("已经是第一页！")
+            } else {
+                $('#book_list').empty();
+                for (let i=0;i<list.length;i++){
+                    $('#book_list').append(`
+                        <div class="four wide column">
+                                <a onclick="goBookDetail(${list[i].categoryId})" style="cursor: pointer">
+                                    <img src="${list[i].mainImage}" style="width: 250px;height: 220px" class="ui rounded image">
+                                </a>
+                                <div class="m-padded-ud-tiny"><a href="#" class="ui header">` + list[i].name + `</a></div>
+                                <p class="m-text-thin" style="padding-top: 0.3em">描述:` + list[i].detail + `</p>
+                                <p style="font-size: 14px;color: red;text-decoration:line-through">原价：` + list[i].costPrice + `￥</p>
+                                <p style="font-size: 14px;color: red;">折扣价：` + list[i].discountPrice + `￥</p>
+                            </div>
+                        `);
+                }
+                window.localStorage.setItem("currentPage",temp);
+            }
+        }
+    })
+
+
+}
+//下一页
+function nextPage() {
+    let currentPage = window.localStorage.getItem('currentPage');
+    let categoryId = window.localStorage.getItem('pageCache-Id');
+    let temp=Number(currentPage)+1;
+    $.ajax({
+        type:'post',
+        url:'http://localhost:9527/product/main/pager',
+        data: {
+            pageNum:temp,
+            pageSize:8,
+            categoryId:categoryId,
+            hasHot:1
+        },
+        xhrFields:{
+            withCredentials:true
+
+        },
+        success:function (vo) {
+            let list = vo.data.list;
+            let data = vo.data;
+            if (Number(data.pageNum) > Number(data.pages)){
+                alert("已经是最后一页！")
+            } else {
+                $('#book_list').empty();
+                for (let i=0;i<list.length;i++){
+                    $('#book_list').append(`
+                        <div class="four wide column">
+                                <a onclick="goBookDetail(${list[i].categoryId})" style="cursor: pointer">
+                                    <img src="${list[i].mainImage}" style="width: 250px;height: 220px" class="ui rounded image">
+                                </a>
+                                <div class="m-padded-ud-tiny"><a href="#" class="ui header">` + list[i].name + `</a></div>
+                                <p class="m-text-thin" style="padding-top: 0.3em">描述:` + list[i].detail + `</p>
+                                <p style="font-size: 14px;color: red;text-decoration:line-through">原价：` + list[i].costPrice + `￥</p>
+                                <p style="font-size: 14px;color: red;">折扣价：` + list[i].discountPrice + `￥</p>
+                            </div>
+                        `);
+                }
+                window.localStorage.setItem("currentPage",temp);
+            }
+        }
+    })
+
 }
