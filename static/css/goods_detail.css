@@ -1,0 +1,38 @@
+.grid {
+    display: flex;
+    /*justify-content: space-evenly;*/
+}
+.left {
+    margin: 10px;
+}
+.left img{
+    width: 350px;
+    height: 400px;
+}
+.right {
+    margin-left: 150px;
+    margin-top: 30px;
+}
+.right div{
+    height: 30px;
+}
+.id {
+    display: none;
+}
+.title {
+    font-size: 32px;
+    color: #000;
+}
+.desc {
+    font-size: 24px;
+}
+.price {
+    font-size: 20px;
+    color: red;
+}
+.num input {
+    width: 50px;
+}
+.operate {
+    margin-top: 40px;
+}

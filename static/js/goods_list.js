@@ -118,7 +118,7 @@ function loadRecommendation(categoryId) {
             for (let i=0;i<list.length;i++){
                 $('#book_list').append(`
                         <div class="four wide column">
-                                <a onclick="goBookDetail(${list[i].categoryId})" style="cursor: pointer">
+                                <a onclick="goBookDetail(${list[i].id})" style="cursor: pointer">
                                     <img src="${list[i].mainImage}" style="width: 250px;height: 220px" class="ui rounded image">
                                 </a>
                                 <div class="m-padded-ud-tiny"><a href="#" class="ui header">` + list[i].name + `</a></div>
@@ -160,7 +160,7 @@ function prePage() {
                 for (let i=0;i<list.length;i++){
                     $('#book_list').append(`
                         <div class="four wide column">
-                                <a onclick="goBookDetail(${list[i].categoryId})" style="cursor: pointer">
+                                <a onclick="goBookDetail(${list[i].id})" style="cursor: pointer">
                                     <img src="${list[i].mainImage}" style="width: 250px;height: 220px" class="ui rounded image">
                                 </a>
                                 <div class="m-padded-ud-tiny"><a href="#" class="ui header">` + list[i].name + `</a></div>
@@ -205,7 +205,7 @@ function nextPage() {
                 for (let i=0;i<list.length;i++){
                     $('#book_list').append(`
                         <div class="four wide column">
-                                <a onclick="goBookDetail(${list[i].categoryId})" style="cursor: pointer">
+                                <a onclick="goBookDetail(${list[i].id})" style="cursor: pointer">
                                     <img src="${list[i].mainImage}" style="width: 250px;height: 220px" class="ui rounded image">
                                 </a>
                                 <div class="m-padded-ud-tiny"><a href="#" class="ui header">` + list[i].name + `</a></div>
@@ -220,4 +220,24 @@ function nextPage() {
         }
     })
 
+}
+// 获取商品详情
+function goBookDetail(id){
+    window.localStorage.setItem("detailId",id);
+    window.location.href='goods_detail.html';
+    // $.ajax({
+    //     type:'post',
+    //     url:'http://localhost:9527/product/main/getGoodsDetail',
+    //     data: {
+    //         id:id
+    //     },
+    //     xhrFields:{
+    //         withCredentials:true
+    //     },
+    //     success:function (vo) {
+    //         let data = vo.data;
+    //         window.localStorage.setItem("detailId",data.id);
+    //         window.location.href='goods_detail.html';
+    //     }
+    // })
 }

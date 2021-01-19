@@ -1,0 +1,14 @@
+#clothes-list {
+    display: flex;
+    justify-content: space-between;
+}
+#clothes-list img {
+    width: 33%;
+}
+#makeUp-list {
+    display: flex;
+    justify-content: space-between;
+}
+#makeUp-list img {
+    width: 33%;
+}

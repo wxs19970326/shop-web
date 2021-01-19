@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html >
+<head>
+    <meta charset="UTF-8">
+    <title>后台数据字典管理</title>
+    <!--引入jqgrid-->
+    <link rel="stylesheet" type="text/css" href="../static/js/easyui/themes/default/easyui.css"/>
+    <link rel="stylesheet" type="text/css" href="../static/js/easyui/themes/icon.css"/>
+    <script type="text/javascript" src="../static/js/easyui/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="../static/js/easyui/locale/easyui-lang-zh_CN.js"></script>
+    <!--引入semantic-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css">
+    <!--引入自己-->
+    <script type="text/javascript" src="../static/js/data_dic.js"></script>
+    <link rel="stylesheet" href="../static/css/data_dic.css">
+</head>
+<body>
+<!--查询条件 + 新增+查询-->
+    <div id="condition1">
+        <div style="display: flex;justify-content: left">
+            <div>
+                <label>字典编码：</label>
+                <input type="text"/>
+            </div>
+            <div>
+                <label>字典名称：</label>
+                <input type="text"/>
+            </div>
+            <button class="ui blue button" id="search1" type="button">查询</button>
+            <button class="ui blue button" id="addDic" type="button">添加字典</button>
+        </div>
+
+    </div>
+<!--字典列表+分页-->
+    <div id="condition2"></div>
+<!--查询条件 + 新增+查询-->
+    <div></div>
+<!--枚举列表+分页-->
+    <div></div>
+</body>
+</html>
