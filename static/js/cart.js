@@ -1,30 +1,27 @@
 $(function () {
-    let id = window.localStorage.getItem("detailId");
-    let num = window.localStorage.getItem("num");
-    getDetail(id,num)
-});
-//通过id获取商品详情
-function getDetail(id,num){
     $.ajax({
-        type:'post',
-        url:'http://localhost:9527/product/main/getGoodsDetail',
-        data: {
-            id:id
-        },
+        type: 'post',
+        url: 'http://localhost:9527/product/cart/showCart',
         xhrFields:{
             withCredentials:true
         },
         success:function (vo) {
             let data = vo.data;
-            let sum = data.discountPrice * num;
-            $('.content').append(`
+            for (let cart of data){
+                let sum = cart.discountPrice * cart.num;
+                $('.content').append(`
                 <tr>
-                    <td>${data.name}</td>
-                    <td>${data.discountPrice}</td>
-                    <td>${num}</td>
+                    <td><input type="checkbox"/></td>
+                    <td>${cart.name}</td>
+                    <td>${cart.color}</td>
+                    <td>${cart.size}</td>
+                    <td>${cart.discountPrice}</td>
+                    <td>${cart.num}</td>
                     <td>${sum}</td>
                 </tr>
     `);
+            }
         }
     })
-}
+
+});
