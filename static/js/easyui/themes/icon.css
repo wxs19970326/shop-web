@@ -1,0 +1,137 @@
+.icon-blank{
+	background:url('icons/blank.gif') no-repeat;
+}
+.icon-add{
+	background:url('icons/edit_add.png') no-repeat;
+}
+.icon-edit{
+	background:url('icons/pencil.png') no-repeat;
+}
+.icon-remove{
+	background:url('icons/edit_remove.png') no-repeat;
+}
+.icon-save{
+	background:url('icons/filesave.png') no-repeat;
+}
+.icon-cut{
+	background:url('icons/cut.png') no-repeat;
+}
+.icon-ok{
+	background:url('icons/ok.png') no-repeat;
+}
+.icon-no{
+	background:url('icons/no.png') no-repeat;
+}
+.icon-cancel{
+	background:url('icons/cancel.png') no-repeat;
+}
+.icon-reload{
+	background:url('icons/reload.png') no-repeat;
+}
+.icon-search{
+	background:url('icons/search.png') no-repeat;
+}
+.icon-print{
+	background:url('icons/print.png') no-repeat;
+}
+.icon-help{
+	background:url('icons/help.png') no-repeat;
+}
+.icon-undo{
+	background:url('icons/undo.png') no-repeat;
+}
+.icon-redo{
+	background:url('icons/redo.png') no-repeat;
+}
+.icon-back{
+	background:url('icons/back.png') no-repeat;
+}
+.icon-sum{
+	background:url('icons/sum.png') no-repeat;
+}
+.icon-tip{
+	background:url('icons/tip.png') no-repeat;
+}
+
+.icon-mini-add{
+	background:url('icons/mini_add.png') no-repeat 2px 2px;
+}
+.icon-mini-edit{
+	background:url('icons/mini_edit.png') no-repeat 2px 2px;
+}
+.icon-mini-refresh{
+	background:url('icons/mini_refresh.png') no-repeat 3px 2px;
+}
+.icon-folder-close{
+	background:url('icons/tree_folder.gif') no-repeat;
+}
+.icon-folder-open{
+	background:url('icons/tree_folder_open.gif') no-repeat;
+}
+
+.icon-zhongxin{
+	background:url('icons/zhongxin.png') no-repeat;
+}
+.icon-shouye{
+	background:url('icons/shouye.png') no-repeat;
+}
+.icon-bingli{
+	background:url('icons/bingli.png') no-repeat;
+}
+.icon-zhuanti{
+	background:url('icons/zhuanti.png') no-repeat;
+}
+.icon-tongji{
+	background:url('icons/tongji.png') no-repeat;
+}
+.icon-daochu{
+	background:url('icons/daochu.png') no-repeat;
+}
+.icon-zhanghao{
+	background:url('icons/zhanghao.png') no-repeat;
+}
+.icon-ziliao{
+	background:url('icons/ziliao.png') no-repeat;
+}
+.icon-henji{
+	background:url('icons/lishihenji.png') no-repeat;
+}
+.icon-tuichu{
+	background:url('icons/tuichu.png') no-repeat;
+}
+
+.icon-liebiao{
+	background:url('icons/liebiao.png') no-repeat;
+}
+
+.icon-tongjibiao{
+	background:url('icons/tongjibiao.png') no-repeat;
+}
+.icon-chuangjianbiao{
+	background:url('icons/chuangjianbiao.png') no-repeat;
+}
+.icon-jiesuo{
+	background:url('icons/lock_unlock.png') no-repeat;
+}
+.icon-suoding{
+	background:url('icons/lock.png') no-repeat;
+}
+.icon-shezhi{
+	background:url('icons/shezhi.png') no-repeat;
+}
+.icon-chakan{
+	background:url('icons/chakanziliao.png') no-repeat;
+}
+
+.icon-baocun{
+	background:url('icons/tree-baocun.gif') no-repeat center;
+}
+.icon-bianji{
+	background:url('icons/tree-bianji.jpg') no-repeat center;
+}
+.icon-upload{
+	background:url('icons/upload.jpg') no-repeat;
+}
+.icon-download{
+	background:url('icons/download.jpg') no-repeat;
+}

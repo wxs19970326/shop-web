@@ -118,10 +118,13 @@ function loadRecommendation(categoryId) {
             for (let i=0;i<list.length;i++){
                 $('#book_list').append(`
                         <div class="four wide column">
-                                <a onclick="goBookDetail(${list[i].id})" style="cursor: pointer">
+                                <a onclick="goGoodDetail(${list[i].id})" style="cursor: pointer">
                                     <img src="${list[i].mainImage}" style="width: 250px;height: 220px" class="ui rounded image">
                                 </a>
-                                <div class="m-padded-ud-tiny"><a href="#" class="ui header">` + list[i].name + `</a></div>
+                                <div class="m-padded-ud-tiny" style="display: flex">
+                                    <a href="#" class="ui header">` + list[i].name + `</a>
+                                 
+                                </div>
                                 <p class="m-text-thin" style="padding-top: 0.3em">描述:` + list[i].detail + `</p>
                                 <p style="font-size: 14px;color: red;text-decoration:line-through">原价：` + list[i].costPrice + `￥</p>
                                 <p style="font-size: 14px;color: red;">折扣价：` + list[i].discountPrice + `￥</p>
@@ -163,7 +166,10 @@ function prePage() {
                                 <a onclick="goBookDetail(${list[i].id})" style="cursor: pointer">
                                     <img src="${list[i].mainImage}" style="width: 250px;height: 220px" class="ui rounded image">
                                 </a>
-                                <div class="m-padded-ud-tiny"><a href="#" class="ui header">` + list[i].name + `</a></div>
+                                <div class="m-padded-ud-tiny">
+                                    <a href="#" class="ui header">` + list[i].name + `</a>
+                                    <img src="../static/img/collect.svg" style="margin-left: 100px;height: 25px;">
+                                </div>
                                 <p class="m-text-thin" style="padding-top: 0.3em">描述:` + list[i].detail + `</p>
                                 <p style="font-size: 14px;color: red;text-decoration:line-through">原价：` + list[i].costPrice + `￥</p>
                                 <p style="font-size: 14px;color: red;">折扣价：` + list[i].discountPrice + `￥</p>
@@ -208,7 +214,10 @@ function nextPage() {
                                 <a onclick="goBookDetail(${list[i].id})" style="cursor: pointer">
                                     <img src="${list[i].mainImage}" style="width: 250px;height: 220px" class="ui rounded image">
                                 </a>
-                                <div class="m-padded-ud-tiny"><a href="#" class="ui header">` + list[i].name + `</a></div>
+                                <div class="m-padded-ud-tiny">
+                                    <a href="#" class="ui header">` + list[i].name + `</a>
+                                    <img src="../static/img/collect.svg" style="margin-left: 100px;height: 25px;">
+                                </div>
                                 <p class="m-text-thin" style="padding-top: 0.3em">描述:` + list[i].detail + `</p>
                                 <p style="font-size: 14px;color: red;text-decoration:line-through">原价：` + list[i].costPrice + `￥</p>
                                 <p style="font-size: 14px;color: red;">折扣价：` + list[i].discountPrice + `￥</p>
@@ -222,22 +231,8 @@ function nextPage() {
 
 }
 // 获取商品详情
-function goBookDetail(id){
+function goGoodDetail(id){
     window.localStorage.setItem("detailId",id);
     window.location.href='goods_detail.html';
-    // $.ajax({
-    //     type:'post',
-    //     url:'http://localhost:9527/product/main/getGoodsDetail',
-    //     data: {
-    //         id:id
-    //     },
-    //     xhrFields:{
-    //         withCredentials:true
-    //     },
-    //     success:function (vo) {
-    //         let data = vo.data;
-    //         window.localStorage.setItem("detailId",data.id);
-    //         window.location.href='goods_detail.html';
-    //     }
-    // })
 }
+

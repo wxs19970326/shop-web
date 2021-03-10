@@ -30,6 +30,9 @@ function goBookDetail(id){
                 <div class="size">${data.size}</div>
                 <div class="num">
                     <input type="number" id="goodsNum" oninput="if(value <= 0 ){value = 0}">件
+                      <a id="like" onclick="collect(${list[i].id})">
+                          <img src="../static/img/like.svg" onclick="changeColor()">
+                      </a>
                 </div>
                 <div class="operate">
                     <button class="ui orange button" type="button">立即购买</button>
@@ -60,8 +63,5 @@ function shoppingCart(id) {
             }
         }
     })
-    // window.localStorage.setItem("detailId",id);
-    // let goodsNum = $("#goodsNum").val();
-    // window.localStorage.setItem("num",goodsNum);
-    // window.location.href='cart.html';
 }
+
