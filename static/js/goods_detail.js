@@ -1,7 +1,8 @@
 
 $(function () {
-    let id=window.localStorage.getItem("detailId");
+    let id=window.localStorage.getItem("detailId");//此id就是goodId
     goBookDetail(id);
+    //TODO 判断是否有？ 再改变颜色
 
 });
 // 获取商品详情
@@ -30,9 +31,7 @@ function goBookDetail(id){
                 <div class="size">${data.size}</div>
                 <div class="num">
                     <input type="number" id="goodsNum" oninput="if(value <= 0 ){value = 0}">件
-                      <a id="like" onclick="collect(${list[i].id})">
-                          <img src="../static/img/like.svg" onclick="changeColor()">
-                      </a>
+                    <img src="../static/img/like.svg" id="like" onclick="collect(${data.id})" style="margin-left: 40px;">
                 </div>
                 <div class="operate">
                     <button class="ui orange button" type="button">立即购买</button>
@@ -64,4 +63,27 @@ function shoppingCart(id) {
         }
     })
 }
+// 收藏/取消收藏
+function collect(goodsId){
+    $.ajax({
+        type: 'post',
+        url: 'http://localhost:9527/product/store/collect',
+        data:{
+            goodsId: goodsId
+        },
+        xhrFields:{
+            withCredentials:true
+        },
+        success:function (vo) {
+            let data = vo.data;
+            if(data==null){// 没有此商品 收藏
+                $("#like").css("background-color","red");
+                alert("收藏成功")
+            }else {// 取消收藏
+                $("#like").css("background-color","gray");
+                alert("取消收藏")
+            }
+        }
+    })
 
+}
