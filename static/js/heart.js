@@ -24,7 +24,7 @@ $(function () {
                     <td>${list[i].name}</td>
                     <td>${list[i].discountPrice}</td>
                     <td>
-                        <a href="" onclick="deleteById('${list[i].id}')">刪除</a>
+                        <button class="ui green button" type="button" onclick="deleteById('${list[i].id}')">删除</button>
                     </td>
                 </tr>
                  `);
@@ -50,12 +50,13 @@ $(function () {
         page(3)
     })
 });
-function deleteById(id) {
+//删除收藏项
+function deleteById(goodsId) {
     $.ajax({
         type: 'post',
         url: 'http://localhost:9527/product/store/deleteById',
         data:{
-            id:id
+            goodsId:goodsId
         },
         xhrFields:{
             withCredentials:true
@@ -67,7 +68,8 @@ function deleteById(id) {
                 alert("删除失败！")
             }
         }
-    })
+    });
+    page(1); //刷新
 }
 //上一页
 function prePage() {
