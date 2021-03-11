@@ -50,39 +50,6 @@ $(function () {
         page(3)
     })
 });
-function collect(goodsId){
-    $.ajax({
-        type: 'post',
-        url: 'http://localhost:9527/product/store/collect',
-        data:{
-            goodsId: goodsId
-        },
-        xhrFields:{
-            withCredentials:true
-        },
-        success:function (vo) {
-            let data = vo.data;
-            for (let i = 0; i < data.length; i++) {
-                let sum = data[i].discountPrice *data[i].num;
-                $('.content').append(`
-                <tr>
-                    <td><input type="checkbox"/></td>
-                    <td style="display: none">${data[i].id}</td>
-                    <td style="width: 100px;height: 100px">
-                        <img src="${data[i].imageURL}" alt="">
-                    </td>
-                    <td>${data[i].name}</td>
-                    <td>${data[i].discountPrice}</td>
-                    <td>
-                        <a href="" onclick="deleteById('${data[i].id}')">刪除</a>
-                    </td>
-                </tr>
-                 `);
-            }
-        }
-    })
-
-}
 function deleteById(id) {
     $.ajax({
         type: 'post',

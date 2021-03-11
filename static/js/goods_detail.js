@@ -1,12 +1,12 @@
 
 $(function () {
     let id=window.localStorage.getItem("detailId");//此id就是goodId
-    goBookDetail(id);
+    goGoodDetail(id);
     //TODO 判断是否有？ 再改变颜色
-
+    initShowHaert(id);
 });
 // 获取商品详情
-function goBookDetail(id){
+function goGoodDetail(id){
     $.ajax({
         type:'post',
         url:'http://localhost:9527/product/main/getGoodsDetail',
@@ -17,6 +17,7 @@ function goBookDetail(id){
             withCredentials:true
         },
         success:function (vo) {
+            $('.grid').empty();
             let data = vo.data;
             $('.grid').append(`
             <div class="left">
@@ -85,5 +86,24 @@ function collect(goodsId){
             }
         }
     })
-
+}
+function initShowHaert(goodsId) {
+    $.ajax({
+        type: 'post',
+        url: 'http://localhost:9527/product/store/initShowHeart',
+        data:{
+            goodsId: goodsId
+        },
+        xhrFields:{
+            withCredentials:true
+        },
+        success:function (vo) {
+            let data = vo.data;
+            if(data==null){// 没有此商品
+                $("#like").css("background-color","gray");
+            }else {// 收藏
+                $("#like").css("background-color","red");
+            }
+        }
+    })
 }
