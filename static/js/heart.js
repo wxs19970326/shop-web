@@ -12,19 +12,19 @@ $(function () {
         },
         success:function (vo) {
             let data = vo.data;
-            for (let i = 0; i < data.length; i++) {
-                let sum = data[i].discountPrice *data[i].num;
+            let list = data.list;
+            for (let i = 0; i < list.length; i++) {
                 $('.content').append(`
                 <tr>
                     <td><input type="checkbox"/></td>
-                    <td style="display: none">${data[i].id}</td>
-                    <td style="width: 100px;height: 100px">
-                        <img src="${data[i].imageURL}" alt="">
+                    <td style="display: none">${list[i].id}</td>
+                    <td style="height: 100px;width: 100px;">
+                        <img src="${list[i].mainImage}" alt="" width="100px" height="100px">
                     </td>
-                    <td>${data[i].name}</td>
-                    <td>${data[i].discountPrice}</td>
+                    <td>${list[i].name}</td>
+                    <td>${list[i].discountPrice}</td>
                     <td>
-                        <a href="" onclick="deleteById('${data[i].id}')">刪除</a>
+                        <a href="" onclick="deleteById('${list[i].id}')">刪除</a>
                     </td>
                 </tr>
                  `);
@@ -68,5 +68,122 @@ function deleteById(id) {
             }
         }
     })
+}
+//上一页
+function prePage() {
+    let currentPage = window.localStorage.getItem('currentPage');
+    let temp=Number(currentPage)-1;
+    $.ajax({
+        type:'post',
+        url:'http://localhost:9527/product/store/showHeart',
+        data: {
+            pageNum:temp,
+        },
+        xhrFields:{
+            withCredentials:true
+        },
+        success:function (vo) {
+            let list = vo.data.list;
+            let data = vo.data;
+            if (Number(data.pageNum) < 1){
+                alert("已经是第一页！")
+            } else {
+                $('.content').empty();
+                for (let i=0;i<list.length;i++){
+                    $('.content').append(`
+                        <tr>
+                            <td><input type="checkbox"/></td>
+                            <td style="display: none">${list[i].id}</td>
+                            <td style="height: 100px;width: 100px;">
+                                <img src="${list[i].mainImage}" alt="" width="100px" height="100px">
+                            </td>
+                            <td>${list[i].name}</td>
+                            <td>${list[i].discountPrice}</td>
+                            <td>
+                                <a href="" onclick="deleteById('${list[i].id}')">刪除</a>
+                            </td>
+                        </tr>
+                        `);
+                }
+                window.localStorage.setItem("currentPage",temp);
+            }
+        }
+    })
+}
+//下一页
+function nextPage() {
+    let currentPage = window.localStorage.getItem('currentPage');
+    let temp=Number(currentPage)+1;
+    $.ajax({
+        type:'post',
+        url:'http://localhost:9527/product/store/showHeart',
+        data: {
+            pageNum:temp,
+        },
+        xhrFields:{
+            withCredentials:true
+        },
+        success:function (vo) {
+            let list = vo.data.list;
+            let data = vo.data;
+            if (Number(data.pageNum) > Number(data.pages)){
+                alert("已经是最后一页！")
+            } else {
+                $('.content').empty();
+                for (let i=0;i<list.length;i++){
+                    $('.content').append(`
+                        <tr>
+                            <td><input type="checkbox"/></td>
+                            <td style="display: none">${list[i].id}</td>
+                            <td style="height: 100px;width: 100px;">
+                                <img src="${list[i].mainImage}" alt="" width="100px" height="100px">
+                            </td>
+                            <td>${list[i].name}</td>
+                            <td>${list[i].discountPrice}</td>
+                            <td>
+                                <a href="" onclick="deleteById('${list[i].id}')">刪除</a>
+                            </td>
+                        </tr>
+                        `);
+                }
+                window.localStorage.setItem("currentPage",temp);
+            }
+        }
+    })
+}
+//第n页
+function page(n) {
+    $.ajax({
+        type: 'post',
+        url: 'http://localhost:9527/product/store/showHeart',
+        data:{
+            pageNum:n
+        },
+        xhrFields:{
+            withCredentials:true
+        },
+        success:function (vo) {
+            let data = vo.data;
+            let list = data.list;
+            $('.content').empty();
+            for (let i = 0; i < list.length; i++) {
+                $('.content').append(`
+                    <tr>
+                        <td><input type="checkbox"/></td>
+                        <td style="display: none">${list[i].id}</td>
+                        <td style="height: 100px;width: 100px;">
+                            <img src="${list[i].mainImage}" alt="" width="100px" height="100px">
+                        </td>
+                        <td>${list[i].name}</td>
+                        <td>${list[i].discountPrice}</td>
+                        <td>
+                            <a href="" onclick="deleteById('${list[i].id}')">刪除</a>
+                        </td>
+                    </tr>
+                 `);
+            }
+        }
+    });
+    window.localStorage.setItem("currentPage",n);
 }
 

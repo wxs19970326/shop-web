@@ -18,8 +18,8 @@ function lookGoodDetail(id){
         success:function (vo) {
             let data = vo.data;
             $('.content').append(`
-            <div class="left">
-                <img src="${data.mainImage}" alt="">
+            <div class="left" >
+                <img src="${data.mainImage}" alt="" >
             </div>
             <div class="right">
                 <div class="id">${data.id}</div>
@@ -85,6 +85,7 @@ function collect(goodsId){
         }
     })
 }
+//页面加载时 收藏展示
 function initShowHaert(goodsId) {
     $.ajax({
         type: 'post',
