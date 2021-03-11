@@ -1,12 +1,11 @@
 
 $(function () {
     let id=window.localStorage.getItem("detailId");//此id就是goodId
-    goGoodDetail(id);
-    //TODO 判断是否有？ 再改变颜色
+    lookGoodDetail(id);
     initShowHaert(id);
 });
 // 获取商品详情
-function goGoodDetail(id){
+function lookGoodDetail(id){
     $.ajax({
         type:'post',
         url:'http://localhost:9527/product/main/getGoodsDetail',
@@ -17,9 +16,8 @@ function goGoodDetail(id){
             withCredentials:true
         },
         success:function (vo) {
-            $('.grid').empty();
             let data = vo.data;
-            $('.grid').append(`
+            $('.content').append(`
             <div class="left">
                 <img src="${data.mainImage}" alt="">
             </div>
