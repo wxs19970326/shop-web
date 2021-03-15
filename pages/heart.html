@@ -13,7 +13,7 @@
 <nav id="nav" class="ui inverted attached segment m-padded-ud-mini"></nav>
 <div class="m-padded-ud-large">
     <div id="process">
-        <button class="ui green button" type="button">删除</button>
+        <button class="ui green button" type="button" onclick="delMore()">批量删除</button>
     </div>
     <table class="ui celled table">
         <thead>
@@ -26,7 +26,7 @@
             <th>删除</th>
         </tr>
         </thead>
-        <tbody class="content">
+        <tbody class="contentDiv">
             <!--动态拼接-->
         </tbody>
         <tfoot>
@@ -48,10 +48,26 @@
         </tfoot>
     </table>
     <div style="display: flex;justify-content: center">
-        <button class="ui orange button" type="button">结算</button>
+        <button class="ui orange button" type="button" onclick="consume()">结算</button>
     </div>
 </div>
-
+<!-- 模态框 -->
+<div class="ui modal">
+    <i class="close icon"></i>
+    <div class="header">
+        结算
+    </div>
+    <div class="content">
+        <div>您这次消费总金额为：<span id="sumMoney"></span>
+            <br/>
+            请结算
+        </div>
+    </div>
+    <div class="actions">
+        <div class="ui button" onclick="cancle()">取消</div>
+        <div class="ui button">确定</div>
+    </div>
+</div>
 
 <footer id="footer" class="ui inverted vertical segment m-padded-ud-massive"></footer>
 <script src="../static/lib/jquery-3.4.1.min.js"></script>

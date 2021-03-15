@@ -1,3 +1,6 @@
+var checkArr ='';//所有input
+var money=[];//存放选中的钱
+let list =[];
 $(function () {
     // 分页展示
     $.ajax({
@@ -12,11 +15,13 @@ $(function () {
         },
         success:function (vo) {
             let data = vo.data;
-            let list = data.list;
+            list = data.list;
             for (let i = 0; i < list.length; i++) {
-                $('.content').append(`
+                $('.contentDiv').append(`
                 <tr>
-                    <td><input type="checkbox"/></td>
+                    <td>
+                        <input type="checkbox"/>
+                    </td>
                     <td style="display: none">${list[i].id}</td>
                     <td style="height: 100px;width: 100px;">
                         <img src="${list[i].mainImage}" alt="" width="100px" height="100px">
@@ -31,6 +36,7 @@ $(function () {
             }
         }
     })
+
     window.localStorage.setItem('currentPage','1');
     // 上一页
     $("#pre").click(function () {
@@ -48,8 +54,13 @@ $(function () {
     })
     $("#three").click(function () {
         page(3)
-    })
+    });
+
 });
+
+
+
+
 //删除收藏项
 function deleteById(goodsId) {
     $.ajax({
@@ -90,9 +101,9 @@ function prePage() {
             if (Number(data.pageNum) < 1){
                 alert("已经是第一页！")
             } else {
-                $('.content').empty();
+                $('.contentDiv').empty();
                 for (let i=0;i<list.length;i++){
-                    $('.content').append(`
+                    $('.contentDiv').append(`
                         <tr>
                             <td><input type="checkbox"/></td>
                             <td style="display: none">${list[i].id}</td>
@@ -131,9 +142,9 @@ function nextPage() {
             if (Number(data.pageNum) > Number(data.pages)){
                 alert("已经是最后一页！")
             } else {
-                $('.content').empty();
+                $('.contentDiv').empty();
                 for (let i=0;i<list.length;i++){
-                    $('.content').append(`
+                    $('.contentDiv').append(`
                         <tr>
                             <td><input type="checkbox"/></td>
                             <td style="display: none">${list[i].id}</td>
@@ -153,6 +164,8 @@ function nextPage() {
         }
     })
 }
+
+
 //第n页
 function page(n) {
     $.ajax({
@@ -167,9 +180,9 @@ function page(n) {
         success:function (vo) {
             let data = vo.data;
             let list = data.list;
-            $('.content').empty();
+            $('.contentDiv').empty();
             for (let i = 0; i < list.length; i++) {
-                $('.content').append(`
+                $('.contentDiv').append(`
                     <tr>
                         <td><input type="checkbox"/></td>
                         <td style="display: none">${list[i].id}</td>
@@ -188,4 +201,59 @@ function page(n) {
     });
     window.localStorage.setItem("currentPage",n);
 }
+//结算 --将收藏项从收藏夹中删除 跳转支付 goodsId
+function consume() {
+    $('.ui.modal')
+        .modal('show')
+    ;
+    // 得在页面加载完之后 才能获取是否选中
+    var sumMoney =0.0;
+    checkArr =$(".contentDiv input");
+    for (let i=0;i<checkArr.length;i++){
+        var detail =list[i];
+        if (checkArr[i].checked==true){// 选中
+            sumMoney+=detail.discountPrice;
+        }
+    }
+    $("#sumMoney").html(sumMoney);
+
+}
+// 关闭模态框
+function cancle(){
+    $('.ui.modal')
+        .modal('hide')
+    ;
+}
+//批量删除
+function delMore() {
+    checkArr=$(".contentDiv input");
+    var goodsIds='';
+    for (let i=0;i<checkArr.length;i++){
+        var detail =list[i];
+        if (checkArr[i].checked==true){// 选中
+            goodsIds+=detail.id+',';
+        }
+    }
+    goodsIds=goodsIds.substring(0,goodsIds.length-1);
+    $.ajax({
+        type: 'post',
+        url: 'http://localhost:9527/product/store/deleteByIds',
+        data:{
+            goodsIds:goodsIds
+        },
+        xhrFields:{
+            withCredentials:true
+        },
+        success:function (data) {
+            if (data.code=2000){
+                alert("删除成功！")
+            } else {
+                alert("删除失败！")
+            }
+        }
+    });
+    page(1); //刷新
+}
+
+
 
