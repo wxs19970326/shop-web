@@ -1,6 +1,5 @@
 var checkArr ='';//所有input
-var money=[];//存放选中的钱
-let list =[];
+let list =[];//存放当前页的数据
 $(function () {
     // 分页展示
     $.ajax({
@@ -11,7 +10,7 @@ $(function () {
         },
         data:{
             pageNum:1,
-            pageSize:5
+            pageSize:3
         },
         success:function (vo) {
             let data = vo.data;
@@ -40,27 +39,30 @@ $(function () {
     window.localStorage.setItem('currentPage','1');
     // 上一页
     $("#pre").click(function () {
-        prePage()
+        prePage();
+        $("#choseAll").prop('checked',false);
     })
     // 下一页
     $("#next").click(function () {
-        nextPage()
+        nextPage();
+        $("#choseAll").prop('checked',false);
     })
     $("#one").click(function () {
-        page(1)
+        page(1);
+        $("#choseAll").prop('checked',false);
     })
     $("#two").click(function () {
-        page(2)
+        page(2);
+        $("#choseAll").prop('checked',false);
     })
     $("#three").click(function () {
-        page(3)
+        page(3);
+        $("#choseAll").prop('checked',false);
     });
-
+    $("#choseAll").click(function () {
+        choseAll()
+    });
 });
-
-
-
-
 //删除收藏项
 function deleteById(goodsId) {
     $.ajax({
@@ -96,7 +98,7 @@ function prePage() {
             withCredentials:true
         },
         success:function (vo) {
-            let list = vo.data.list;
+            list = vo.data.list;
             let data = vo.data;
             if (Number(data.pageNum) < 1){
                 alert("已经是第一页！")
@@ -137,7 +139,7 @@ function nextPage() {
             withCredentials:true
         },
         success:function (vo) {
-            let list = vo.data.list;
+            list = vo.data.list;
             let data = vo.data;
             if (Number(data.pageNum) > Number(data.pages)){
                 alert("已经是最后一页！")
@@ -164,8 +166,6 @@ function nextPage() {
         }
     })
 }
-
-
 //第n页
 function page(n) {
     $.ajax({
@@ -179,7 +179,7 @@ function page(n) {
         },
         success:function (vo) {
             let data = vo.data;
-            let list = data.list;
+            list = data.list;
             $('.contentDiv').empty();
             for (let i = 0; i < list.length; i++) {
                 $('.contentDiv').append(`
@@ -200,29 +200,6 @@ function page(n) {
         }
     });
     window.localStorage.setItem("currentPage",n);
-}
-//结算 --将收藏项从收藏夹中删除 跳转支付 goodsId
-function consume() {
-    $('.ui.modal')
-        .modal('show')
-    ;
-    // 得在页面加载完之后 才能获取是否选中
-    var sumMoney =0.0;
-    checkArr =$(".contentDiv input");
-    for (let i=0;i<checkArr.length;i++){
-        var detail =list[i];
-        if (checkArr[i].checked==true){// 选中
-            sumMoney+=detail.discountPrice;
-        }
-    }
-    $("#sumMoney").html(sumMoney);
-
-}
-// 关闭模态框
-function cancle(){
-    $('.ui.modal')
-        .modal('hide')
-    ;
 }
 //批量删除
 function delMore() {
@@ -254,6 +231,14 @@ function delMore() {
     });
     page(1); //刷新
 }
-
+//全选
+function choseAll() {
+    if ($("#choseAll").checked=true){ //全选选中，当前页的都选中
+        checkArr =$(".contentDiv input");
+        for (var i=0;i<list.length;i++){
+            checkArr[i].checked=true;
+        }
+    }
+}
 
 

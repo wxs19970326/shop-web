@@ -18,12 +18,12 @@
     <table class="ui celled table">
         <thead>
         <tr>
-            <th><input class="ui checkbox" type="checkbox"/>全选</th>
+            <th><input class="ui checkbox" type="checkbox" id="choseAll"/>全选</th>
             <th style="display: none">id</th>
             <th>图片</th>
             <th>商品名称</th>
             <th>单价</th>
-            <th>删除</th>
+            <th>操作</th>
         </tr>
         </thead>
         <tbody class="contentDiv">
@@ -47,27 +47,8 @@
         </tr>
         </tfoot>
     </table>
-    <div style="display: flex;justify-content: center">
-        <button class="ui orange button" type="button" onclick="consume()">结算</button>
-    </div>
 </div>
-<!-- 模态框 -->
-<div class="ui modal">
-    <i class="close icon"></i>
-    <div class="header">
-        结算
-    </div>
-    <div class="content">
-        <div>您这次消费总金额为：<span id="sumMoney"></span>
-            <br/>
-            请结算
-        </div>
-    </div>
-    <div class="actions">
-        <div class="ui button" onclick="cancle()">取消</div>
-        <div class="ui button">确定</div>
-    </div>
-</div>
+
 
 <footer id="footer" class="ui inverted vertical segment m-padded-ud-massive"></footer>
 <script src="../static/lib/jquery-3.4.1.min.js"></script>
