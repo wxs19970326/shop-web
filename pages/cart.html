@@ -5,29 +5,31 @@
     <title>九八商城</title>
 </head>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css">
-<link rel="stylesheet" href="../static/css/register.css">
 <link rel="stylesheet" href="../static/css/mine.css">
+<link rel="stylesheet" href="../static/css/register.css">
 <body>
+<!--导航-->
 <nav id="nav" class="ui inverted attached segment m-padded-ud-mini"></nav>
 <div class="m-padded-ud-large">
     <table class="ui celled table">
         <thead>
         <tr>
-            <th><input class="ui checkbox" type="checkbox"/>全选</th>
+            <th><input class="ui checkbox" type="checkbox" id="choseAll"/>全选</th>
             <th>商品名称</th>
             <th>颜色</th>
             <th>尺寸</th>
             <th>单价</th>
             <th>数量</th>
             <th>总价</th>
+            <th>操作</th>
         </tr>
         </thead>
-        <tbody class="content">
+        <tbody class="contentDiv">
             <!--动态拼接-->
         </tbody>
         <tfoot>
         <tr>
-            <th colspan="7">
+            <th colspan="8">
                 <div class="ui right floated pagination menu">
                     <a class="icon item" id="pre">
                         <i class="left chevron icon"></i>
@@ -44,14 +46,31 @@
         </tfoot>
     </table>
     <div style="display: flex;justify-content: center">
-        <button class="ui orange button" type="button">结算</button>
+        <button class="ui orange button" type="button" onclick="consume()">结算</button>
     </div>
 </div>
-
+<!-- 模态框 -->
+<div class="ui modal">
+    <i class="close icon"></i>
+    <div class="header">
+        结算
+    </div>
+    <div class="content">
+        <div>您这次消费总金额为：<span id="sumMoney"></span>
+            <br/>
+            请结算
+        </div>
+    </div>
+    <div class="actions">
+        <div class="ui button" onclick="cancle()">取消</div>
+        <div class="ui button" onclick="realconsume()">确定</div>
+    </div>
+</div>
 
 <footer id="footer" class="ui inverted vertical segment m-padded-ud-massive"></footer>
 <script src="../static/lib/jquery-3.4.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.js"></script>
+<script src="../static/js/home.js"></script>
 <script src="../static/js/cart.js"></script>
 </body>
 </html>

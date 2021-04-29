@@ -33,7 +33,7 @@ function lookGoodDetail(id){
                     <img src="../static/img/like.svg" id="like" onclick="collect(${data.id})" style="margin-left: 40px;">
                 </div>
                 <div class="operate">
-                    <button class="ui orange button" type="button">立即购买</button>
+                    <button class="ui orange button" type="button" onclick="toBuyNow()">立即购买</button>
                     <button class="ui red button" type="button" onclick="shoppingCart(${data.id})">加入购物车</button>
                 </div> 
             </div>
@@ -41,26 +41,57 @@ function lookGoodDetail(id){
         }
     })
 }
-//加购 保存到购物项中
-function shoppingCart(id) {
+
+//立即购买
+function toBuyNow(){
+    var goodsNum = $("#goodsNum").val();
+    var price = $(".price").text().substring(3);
     $.ajax({
-        type:'post',
-        url:'http://localhost:9527/product/cartitem/addCartItem',
+        type:'get',
+        url:'http://localhost:9527/product/cart/settleInDetail',
         data: {
-            goodId:id,
-            num:$("#goodsNum").val()
+           amount:goodsNum*price
         },
         xhrFields:{
             withCredentials:true
         },
         success:function (data) {
-            if (data.code===2000){
-                alert("加购成功！")
-            } else {
-                alert("加购失败！")
+            console.log(data.data);
+            if (data.code==2000) {
+                $(".m-padded-ud-large").append(data.data);
             }
+
+        },
+        error:function () {
+            alert("出错啦")
         }
     })
+}
+//加购 保存到购物项中
+function shoppingCart(id) {
+    var goodsNum = $("#goodsNum").val();
+    if (goodsNum=="" || goodsNum==undefined || goodsNum==null){
+        alert("请先输入数量！")
+    }else {
+        $.ajax({
+            type:'post',
+            url:'http://localhost:9527/product/cartitem/addCartItem',
+            data: {
+                goodId:id,
+                num:$("#goodsNum").val()
+            },
+            xhrFields:{
+                withCredentials:true
+            },
+            success:function (data) {
+                if (data.code===2000){
+                    alert("加购成功！")
+                } else {
+                    alert("加购失败！")
+                }
+            }
+        })
+    }
 }
 // 收藏/取消收藏
 function collect(goodsId){

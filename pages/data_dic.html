@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>后台数据字典管理</title>
+    <script src="../static/lib/jquery-3.4.1.min.js"></script>
     <!--引入jqgrid-->
     <link rel="stylesheet" type="text/css" href="../static/js/easyui/themes/default/easyui.css"/>
     <link rel="stylesheet" type="text/css" href="../static/js/easyui/themes/icon.css"/>
@@ -17,7 +18,7 @@
 <body>
 <!--查询条件 + 新增+查询-->
     <div id="condition1">
-        <div style="display: flex;justify-content: left">
+        <div style="display: none;justify-content: left" id="element">
             <div>
                 <label>字典编码：</label>
                 <input type="text"/>
@@ -26,10 +27,10 @@
                 <label>字典名称：</label>
                 <input type="text"/>
             </div>
-            <button class="ui blue button" id="search1" type="button">查询</button>
-            <button class="ui blue button" id="addDic" type="button">添加字典</button>
-        </div>
 
+        </div>
+        <button class="ui blue button" id="search1" type="button">查询</button>
+        <button class="ui blue button" id="addDic" type="button">添加字典</button>
     </div>
 <!--字典列表+分页-->
     <div id="condition2"></div>
