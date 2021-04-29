@@ -66,25 +66,11 @@ function renderingNav(categories) {
     $('#categories').empty();
     for (let category of categories) {
         $('#categories').append(`
-        <div class="ui dropdown left-nav item">
-            ${category.name}
-            <i class="dropdown icon"></i>
-            <div class="${category.id} menu">
-                <a class="item">111</a>
-            </div>
+        <div class="item" style="height: 40px">
+            <a style="display: flex;justify-content: center;" onclick="go2ListById(${category.id},'${category.name}')">${category.name}</a>
         </div>
         `);
-        let categoryTemp = category.sonCategories;
-        if (categoryTemp != null) {
-            $(`.${category.id}`).empty();
-            for (let category1 of categoryTemp) {
-                $(`.${category.id}`).append(`<a class="item" onclick="go2ListById(${category1.id},'${category1.name}')">${category1.name}</a>`);
-            }
-        }
     }
-    $('.ui.dropdown').dropdown({
-        on: 'hover'
-    });
 }
 // 渲染商品区
 function go2ListById(categoryId,name) {
