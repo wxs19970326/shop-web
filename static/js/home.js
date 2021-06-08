@@ -4,45 +4,68 @@ $('#footer').load('common_footer.html');
 $(function () {
     // alert("为了方便您的使用，请先实名认证")
     $('#loading').css('display', 'block');
-    loadClothes();
-    loadCosmetics();
+    loadYangSen();
+    loadAiPiao();
     loadHotProduct();
     loadNewestProduct();
     $('#loading').css('display', 'none');
 });
 
-// 加载服饰推荐
-function loadClothes() {
+// 加载养森推荐
+function loadYangSen() {
     $.ajax({
         type: 'post',
-        url: '',
-        data: $('#dataForm').serialize(),
+        url: 'http://localhost:9527/product/main/getYSRecommend',
         xhrFields: {
             withCredentials: true
         },
-        success: function f(res) {
+        success: function(res) {
             if (res.code === 2000) {
-
-            } else {
+                var list=res.data;
+                for (let i=0;i<list.length;i++){
+                    $("#yangsen-list").append(`
+                         <div class="four wide column" style="height: 240px;width: 200px;">
+                            <a style="cursor: pointer">
+                                <img src="${list[i].mainImage}" style="width: 200px;height: 180px" class="ui rounded image">
+                            </a>
+                            <div class="m-padded-ud-tiny">
+                                <a href="#" class="ui header">${list[i].name}</a>
+                            </div>
+                            <p class="m-text-thin" style="padding-top: 0.3em">描述:${ list[i].detail }</p>
+                            <p style="font-size: 14px;color: red;">价格：${list[i].discountPrice}￥</p>
+                        </div>
+                `);
+                }
 
             }
         }
     });
 }
-
-// 加载美妆推荐
-function loadCosmetics() {
+// 加载爱飘飘推荐
+function loadAiPiao() {
     $.ajax({
         type: 'post',
-        url: '',
-        data: $('#dataForm').serialize(),
+        url: 'http://localhost:9527/product/main/getAPPRecommend',
         xhrFields: {
             withCredentials: true
         },
-        success: function f(res) {
+        success: function(res) {
             if (res.code === 2000) {
-
-            } else {
+                var list=res.data;
+                for (let i=0;i<list.length;i++){
+                    $("#aipiaopiao-list").append(`
+                         <div class="four wide column" style="height: 240px;width: 200px;">
+                            <a style="cursor: pointer">
+                                <img src="${list[i].mainImage}" style="width: 200px;height: 180px" class="ui rounded image">
+                            </a>
+                            <div class="m-padded-ud-tiny">
+                                <a href="#" class="ui header">${list[i].name}</a>
+                            </div>
+                            <p class="m-text-thin" style="padding-top: 0.3em">描述:${ list[i].detail }</p>
+                            <p style="font-size: 14px;color: red;">价格：${list[i].discountPrice}￥</p>
+                        </div>
+                `);
+                }
 
             }
         }
@@ -91,4 +114,45 @@ function loadNewestProduct() {
             }
         }
     });
+}
+
+// 养森 加载更多 TODO
+function loadMoreYS() {
+    window.location.href='goods_list.html';
+    //调 接口查询养森类别的
+    loadMore(27);
+}
+
+function loadMore(parentId) {
+    $.ajax({
+        type:'post',
+        url:'http://localhost:9527/product/main/selectByParentId',
+        data: {
+            parentId:parentId
+        },
+        xhrFields:{
+            withCredentials:true
+        },
+        success:function (vo) {
+            let list = vo.data.list;
+            $('#book_list').empty();
+            for (let i=0;i<list.length;i++){
+                $('#book_list').append(`
+                        <div class="four wide column">
+                                <a onclick="goGoodDetail(${list[i].id})" style="cursor: pointer">
+                                    <img src="${list[i].mainImage}" style="width: 250px;height: 220px" class="ui rounded image">
+                                </a>
+                                <div class="m-padded-ud-tiny" style="display: flex">
+                                    <a href="#" class="ui header">` + list[i].name + `</a>
+                                 
+                                </div>
+                                <p class="m-text-thin" style="padding-top: 0.3em">描述:` + list[i].detail + `</p>
+                                <p style="font-size: 14px;color: red;text-decoration:line-through">原价：` + list[i].costPrice + `￥</p>
+                                <p style="font-size: 14px;color: red;">折扣价：` + list[i].discountPrice + `￥</p>
+                            </div>
+                        `);
+            }
+
+        }
+    })
 }

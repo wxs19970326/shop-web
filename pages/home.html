@@ -22,56 +22,51 @@
             <!------------------左边内容-------------------------------->
             <div class="eleven wide column">
                 <!------------------热门商品------------>
+                <!--第一列-->
                 <div class="ui attached padded segment">
                     <div class="ui middle aligned two column grid">
                         <div class="column">
-                            <h3 class="ui teal header">服饰推荐</h3>
+                            <h3 class="ui teal header">养森推荐</h3>
                         </div>
                         <div class="right aligned column">
                             共<h2 id="clothes-count" class="ui orange header m-inline-block m-text-thin">3</h2>件商品
                         </div>
                     </div>
                 </div>
-                <!--服饰列表-->
                 <div class="ui attached padded segment">
-                    <div class="ui padded vertical segment m-padded-ud-large">
-                        <div id="clothes-list" class="teal ui grid">
-                            <img src="../static/img/zara.png" alt="">
-                            <img src="../static/img/uyk.png" alt="">
-                            <img src="../static/img/tpn.png" alt="">
-                        </div>
+                    <div class="ui padded vertical segment m-padded-ud-large" id="yangsen-list">
+                        <!--动态拼接-->
                     </div>
                 </div>
                 <div class="ui bottom attached segment">
                     <div class="ui middle aligned one column grid">
                         <div class="center aligned column">
-                            <a href="book_list.html" class="ui teal basic button">更多潮牌</a>
+                            <a onclick="loadMoreYS()" class="ui teal basic button">更多商品</a>
                         </div>
                     </div>
                 </div>
 
-
+                <!--第二列-->
                 <div class="ui top attached segment">
                     <div class="ui middle aligned two column grid">
                         <div class="column">
-                            <h3 class="ui teal header">美妆推荐</h3>
+                            <h3 class="ui teal header">爱飘飘推荐</h3>
                         </div>
                         <div class="right aligned column">
                             共<h2 id="makeUp-count" class="ui orange header m-inline-block m-text-thin">3</h2>件商品
                         </div>
                     </div>
                 </div>
-                <!--美妆列表-->
-                <div id="makeUp-list" class="ui attached padded segment">
-                    <!-- 通过请求加载 -->
-                    <img src="https://img.alicdn.com/bao/uploaded/i3/2820842454/O1CN01vfVbc21TzybHZ02fo_!!2820842454.jpg" alt="">
-                    <img src="https://img.alicdn.com/bao/uploaded/i3/2820842454/O1CN01vfVbc21TzybHZ02fo_!!2820842454.jpg" alt="">
-                    <img src="https://img.alicdn.com/bao/uploaded/i3/2820842454/O1CN01vfVbc21TzybHZ02fo_!!2820842454.jpg" alt="">
+                <!--爱飘飘列表-->
+                <div class="ui attached padded segment">
+                    <div class="ui padded vertical segment m-padded-ud-large" id="aipiaopiao-list">
+                        <!--动态拼接-->
+                    </div>
                 </div>
                 <div class="ui bottom attached segment">
                     <div class="ui middle aligned one column grid">
                         <div class="center aligned column">
-                            <a href="blog_list.html" class="ui teal basic button">更多好物</a>
+                            <a onclick="loadRecommendation(28)" class="ui teal basic button">更多好物</a>
                         </div>
                     </div>
                 </div>
@@ -122,5 +117,6 @@
 <script src="../static/lib/jquery-3.4.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.js"></script>
 <script src="../static/js/home.js"></script>
+<script src="../static/js/goods_list.js"></script>
 </body>
 </html>

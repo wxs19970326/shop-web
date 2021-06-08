@@ -12,3 +12,11 @@
 #makeUp-list img {
     width: 33%;
 }
+#yangsen-list{
+    display: flex;
+    justify-content: space-between;
+}
+#aipiaopiao-list{
+    display: flex;
+    justify-content: space-between;
+}

@@ -52,7 +52,6 @@ function loadCategory() {
         success: function f(res) {
             if (res.code === 2000) {
                 let categories = res.data;
-                console.log(categories);
                 renderingNav(categories);
             } else {
             }
@@ -67,7 +66,7 @@ function renderingNav(categories) {
     for (let category of categories) {
         $('#categories').append(`
         <div class="item" style="height: 40px">
-            <a style="display: flex;justify-content: center;" onclick="go2ListById(${category.id},'${category.name}')">${category.name}</a>
+            <a style="display: flex;justify-content: center" onclick="go2ListById(${category.id},'${category.name}')">${category.name}</a>
         </div>
         `);
     }
@@ -149,7 +148,7 @@ function prePage() {
                 for (let i=0;i<list.length;i++){
                     $('#book_list').append(`
                         <div class="four wide column">
-                                <a onclick="goBookDetail(${list[i].id})" style="cursor: pointer">
+                                <a style="cursor: pointer">
                                     <img src="${list[i].mainImage}" style="width: 250px;height: 220px" class="ui rounded image">
                                 </a>
                                 <div class="m-padded-ud-tiny">
@@ -197,7 +196,7 @@ function nextPage() {
                 for (let i=0;i<list.length;i++){
                     $('#book_list').append(`
                         <div class="four wide column">
-                                <a onclick="goBookDetail(${list[i].id})" style="cursor: pointer">
+                                <a style="cursor: pointer">
                                     <img src="${list[i].mainImage}" style="width: 250px;height: 220px" class="ui rounded image">
                                 </a>
                                 <div class="m-padded-ud-tiny">
