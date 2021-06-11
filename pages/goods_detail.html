@@ -19,11 +19,40 @@
         </div>
     </div>
 </div>
-<!--<form name="punchout_form" method="post" action="https://openapi.alipaydev.com/gateway.do?charset=utf-8&method=alipay.trade.page.pay&sign=YYqAjxNhMc8FTulBC1eQQisKSu%2B69syw59wOWXGYT9AhGcIoVsPRY0V5md6pPUaIOnfRdF2Fh3Iq4X4GucdYq5tjloUZ45kzucJkVYabuYjESFk9lx%2FutVB%2BL4Q7HoF%2FDyhtLf8Y2hwPAIe3oFQadJNCpso%2Flgevx5vLYGgxQCOK%2BAtkKeVaPl5AD56eQorFsDePAsiHuppT8jpvH99%2BIjBrNHPiROJAVhClijTObDlYIAP%2BLh60WZ5vfmhRz%2Bqjkd7MR83Lva4zBM9pUPwE9%2FTlZZXkaFnT4rbqRPyv5alsBxHQ1qFrh7qnLPbiKoI%2BT9OtOaH4CqdhHZhXy1b%2Bug%3D%3D&return_url=http%3A%2F%2Flocalhost%3A8088%2Falipay.trade.page.pay-JAVA-UTF-8%2Freturn_url.jsp&notify_url=http%3A%2F%2Flocalhost%3A8088%2Falipay.trade.page.pay-JAVA-UTF-8%2Fnotify_url.jsp&version=1.0&app_id=2021000117622188&sign_type=RSA2&timestamp=2021-04-08+17%3A05%3A15&alipay_sdk=alipay-easysdk-java&format=json">-->
-    <!--<input type="hidden" name="biz_content" value="{&quot;out_trade_no&quot;:&quot;ba412e337886456eb24fd8e82503bf67&quot;,&quot;total_amount&quot;:&quot;338&quot;,&quot;subject&quot;:&quot;测试订单&quot;,&quot;product_code&quot;:&quot;FAST_INSTANT_TRADE_PAY&quot;}">-->
-    <!--<input type="submit" value="立即支付" style="display:none" >-->
-<!--</form>-->
-<!--<script>document.forms[0].submit();</script>-->
+<!-- 模态框 -->
+<div class="ui modal">
+    <i class="close icon"></i>
+    <div class="header">
+        订单信息
+    </div>
+    <div class="order_content">
+        <div class="ui input">
+            <label class="order_title">订单名称：</label>
+            <input type="text" name="orderName" id="orderName" value="" readonly>
+        </div>
+        <div class="ui input">
+            <label class="order_title">订单金额：</label>
+            <input type="text" name="amount" id="amount" value="" readonly>
+        </div>
+
+        <div class="ui input">
+            <label class="order_title">收获地址：</label>
+            <input type="text" name="address" id="address" placeholder="收货人地址...">
+        </div>
+        <div class="ui input">
+            <label class="order_title">收货人：</label>
+            <input type="text" name="name" id="name" placeholder="收货人姓名...">
+        </div>
+        <div class="ui input">
+            <label class="order_title">联系方式：</label>
+            <input type="text" name="phone" id="phone" placeholder="收货人电话...">
+        </div>
+    </div>
+    <div class="actions">
+        <div class="ui button" onclick="cancle()">取消</div>
+        <div class="ui button" onclick="createOrder()">确定</div>
+    </div>
+</div>
 <!-------------------底部内容-------------------->
 <footer id="footer" class="ui inverted vertical segment m-padded-ud-massive"></footer>
 <script src="../static/lib/jquery-3.4.1.min.js"></script>

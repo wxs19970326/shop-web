@@ -232,10 +232,15 @@ function cancle(){
 }
 //全选
 function choseAll() {
-    if ($("#choseAll").checked=true){ //全选选中，当前页的都选中
+    if ($("#choseAll").is(':checked')==true){ //全选选中，当前页的都选中
         checkArr =$(".contentDiv input");
         for (var i=0;i<list.length;i++){
             checkArr[i].checked=true;
+        }
+    } else {
+        checkArr =$(".contentDiv input");
+        for (var i=0;i<list.length;i++){
+            checkArr[i].checked=false;
         }
     }
 }

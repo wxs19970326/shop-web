@@ -142,7 +142,8 @@ function prePage() {
             let list = vo.data.list;
             let data = vo.data;
             if (Number(data.pageNum) < 1){
-                alert("已经是第一页！")
+                alert("已经是第一页！");
+                return;
             } else {
                 $('#book_list').empty();
                 for (let i=0;i<list.length;i++){

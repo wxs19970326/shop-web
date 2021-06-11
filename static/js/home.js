@@ -25,7 +25,7 @@ function loadYangSen() {
                 for (let i=0;i<list.length;i++){
                     $("#yangsen-list").append(`
                          <div class="four wide column" style="height: 240px;width: 200px;">
-                            <a style="cursor: pointer">
+                            <a style="cursor: pointer" onclick="toGoodDetail(${list[i].id})">
                                 <img src="${list[i].mainImage}" style="width: 200px;height: 180px" class="ui rounded image">
                             </a>
                             <div class="m-padded-ud-tiny">
@@ -55,7 +55,7 @@ function loadAiPiao() {
                 for (let i=0;i<list.length;i++){
                     $("#aipiaopiao-list").append(`
                          <div class="four wide column" style="height: 240px;width: 200px;">
-                            <a style="cursor: pointer">
+                            <a style="cursor: pointer" onclick="toGoodDetail(${list[i].id})">
                                 <img src="${list[i].mainImage}" style="width: 200px;height: 180px" class="ui rounded image">
                             </a>
                             <div class="m-padded-ud-tiny">
@@ -116,13 +116,17 @@ function loadNewestProduct() {
     });
 }
 
-// 养森 加载更多 TODO
+// 养森 加载更多
 function loadMoreYS() {
     window.location.href='goods_list.html';
     //调 接口查询养森类别的
     loadMore(27);
 }
-
+// 爱飘飘 加载更多
+function loadMoreAPP() {
+    window.location.href='goods_list.html';
+    loadMore(28);
+}
 function loadMore(parentId) {
     $.ajax({
         type:'post',
@@ -155,4 +159,10 @@ function loadMore(parentId) {
 
         }
     })
+}
+
+function toGoodDetail(id){
+    window.localStorage.setItem("detailId",id);
+    window.location.href='goods_detail.html';
+    lookGoodDetail(id);
 }

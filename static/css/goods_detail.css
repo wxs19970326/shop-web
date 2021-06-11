@@ -36,3 +36,14 @@
 .operate {
     margin-top: 40px;
 }
+.order_content{
+    display: grid;
+    margin: 30px;
+}
+.input{
+    margin: 10px;
+}
+.order_title{
+    display: flex;
+    align-items: center;
+}

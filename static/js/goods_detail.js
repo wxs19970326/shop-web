@@ -1,5 +1,7 @@
 var isLogin=false;
 var notLoginMsg='';
+var goods='';
+
 $(function () {
     let id=window.localStorage.getItem("detailId");//此id就是goodId
     lookGoodDetail(id);
@@ -33,6 +35,7 @@ function lookGoodDetail(id){
         },
         success:function (vo) {
             let data = vo.data;
+            goods=data;
             $('.content').append(`
             <div class="left" >
                 <img src="${data.mainImage}" alt="" >
@@ -58,35 +61,90 @@ function lookGoodDetail(id){
         }
     })
 }
-
-//立即购买
+//立即购买 -- 弹出模态框--填写订单信息
 function toBuyNow(){
     var goodsNum = $("#goodsNum").val();
-    var price = $(".price").text().substring(3);
     if (isLogin){
-        $.ajax({
-            type:'get',
-            url:'http://localhost:9527/product/cart/settleInDetail',
-            data: {
-                amount:goodsNum*price
-            },
-            xhrFields:{
-                withCredentials:true
-            },
-            success:function (data) {
-                if (data.code==2000) {
-                    $(".m-padded-ud-large").append(data.data);
-                }
-
-            },
-            error:function () {
-                alert("出错啦")
-            }
-        })
+        if (goodsNum==null || goodsNum<=0){
+            alert("请先输入购买数量！")
+        } else {
+        // 弹出模态框
+            $('.ui.modal')
+                .modal('show')
+            ;
+            $(".container").css('display','none');
+            $("#orderName").val(goodsNum+"个"+goods.name);
+            $("#amount").val(goods.discountPrice * goodsNum);
+        }
     }else {
         alert(notLoginMsg);
     }
 }
+
+// 取消按钮--关闭模态框
+function cancle(){
+    $('.ui.modal')
+        .modal('hide')
+    ;
+}
+
+// 确定按钮--生成订单
+function createOrder() {
+    let id=window.localStorage.getItem("detailId");
+    var goodsNum = $("#goodsNum").val();
+    $.ajax({
+        type:'get',
+        url:'http://localhost:9527/product/order/createOrder',
+        data: {
+            goodId:id,
+            num:goodsNum,
+            orderName:$("#orderName").val(),
+            amount:goods.discountPrice * goodsNum,
+            address:$("#address").val(),
+            name:$("#name").val(),
+            phone:$("#phone").val()
+        },
+        xhrFields:{
+            withCredentials:true
+        },
+        success:function (data) {
+            if (data.code==2000) {
+                var orderNo=data.data.orderNo;
+                pay(orderNo);
+            }
+        },
+        error:function () {
+            alert("出错啦")
+        }
+    })
+}
+
+//支付
+function pay(orderNo) {
+    var goodsNum = $("#goodsNum").val();
+    $.ajax({
+        type:'get',
+        url:'http://localhost:9527/product/main/settleInDetail',
+        data: {
+            amount:goods.discountPrice * goodsNum,
+            num:goodsNum,
+            goodId:goods.id,
+            orderNo:orderNo
+        },
+        xhrFields:{
+            withCredentials:true
+        },
+        success:function (data) {
+            if (data.code==2000) {
+                $(".m-padded-ud-large").append(data.data);
+            }
+        },
+        error:function () {
+            alert("出错啦")
+        }
+    })
+}
+
 //加购 保存到购物项中
 function shoppingCart(id) {
     var goodsNum = $("#goodsNum").val();
@@ -152,9 +210,9 @@ function initShowHaert(goodsId) {
         success:function (vo) {
             let data = vo.data;
             if(data==null){// 没有此商品
-                $("#like").css("background-color","gray");
+                $("#like").css("color","gray");
             }else {// 收藏
-                $("#like").css("background-color","red");
+                $("#like").css("color","red");
             }
         }
     })
