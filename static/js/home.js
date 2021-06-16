@@ -85,7 +85,7 @@ function loadHotProduct() {
                 let list = vo.data;
                 for (let i=0;i<list.length;i++){
                     $('#goodsHot').append(`
-                    <div style="display:flex;margin: 5px 15px;"><a href="#" class="ui" >` + list[i].name + `</a></div>`);
+                    <div style="display:flex;margin: 5px 15px;"><a href="#" class="ui" onclick="toGoodDetail(`+list[i].id+`)">` + list[i].name + `</a></div>`);
                 }
             } else {
                 alert(vo.message)
