@@ -7,6 +7,19 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css">
 <link rel="stylesheet" href="../static/css/mine.css">
 <link rel="stylesheet" href="../static/css/register.css">
+<style>
+    .order_content{
+        display: grid;
+        margin: 30px;
+    }
+    .input{
+        margin: 10px;
+    }
+    .order_title{
+        display: flex;
+        align-items: center;
+    }
+</style>
 <body>
 <!--导航-->
 <nav id="nav" class="ui inverted attached segment m-padded-ud-mini"></nav>
@@ -53,23 +66,57 @@
 <div class="ui modal">
     <i class="close icon"></i>
     <div class="header">
-        结算
+        订单信息
     </div>
-    <div class="content">
-        <div>您这次消费总金额为：<span id="sumMoney"></span>
-            <br/>
-            请结算
+    <div class="order_content">
+        <div class="ui input">
+            <label class="order_title">订单名称：</label>
+            <input type="text" name="orderName" id="orderName" readonly>
+        </div>
+        <div class="ui input">
+            <label class="order_title">订单金额：</label>
+            <input type="text" name="amount" id="amount" readonly>
+        </div>
+
+        <div class="ui input">
+            <label class="order_title">收获地址：</label>
+            <input type="text" name="address" id="address" placeholder="收货人地址...">
+        </div>
+        <div class="ui input">
+            <label class="order_title">收货人：</label>
+            <input type="text" name="name" id="name" placeholder="收货人姓名...">
+        </div>
+        <div class="ui input">
+            <label class="order_title">联系方式：</label>
+            <input type="text" name="phone" id="phone" placeholder="收货人电话...">
         </div>
     </div>
     <div class="actions">
         <div class="ui button" onclick="cancle()">取消</div>
-        <div class="ui button" onclick="realconsume()">确定</div>
+        <div class="ui button" onclick="createOrder()">确定</div>
     </div>
 </div>
+<!--<div class="ui modal">-->
+    <!--<i class="close icon"></i>-->
+    <!--<div class="header">-->
+        <!--结算-->
+    <!--</div>-->
+    <!--<div class="content">-->
+        <!--<div>您这次消费总金额为：<span id="sumMoney"></span>-->
+            <!--<br/>-->
+            <!--请结算-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<div class="actions">-->
+        <!--<div class="ui button" onclick="cancle()">取消</div>-->
+        <!--<div class="ui button" onclick="realconsume()">确定</div>-->
+    <!--</div>-->
+<!--</div>-->
 
 <footer id="footer" class="ui inverted vertical segment m-padded-ud-massive"></footer>
 <script src="../static/lib/jquery-3.4.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.js"></script>
+<script src="../static/js/common.js"></script>
 <script src="../static/js/home.js"></script>
 <script src="../static/js/cart.js"></script>
 </body>

@@ -118,14 +118,13 @@ function loadNewestProduct() {
 
 // 养森 加载更多
 function loadMoreYS() {
+    window.localStorage.setItem('categoryId', '27');
     window.location.href='goods_list.html';
-    //调 接口查询养森类别的
-    loadMore(27);
 }
-// 爱飘飘 加载更多
+// 爱飘飘 加载更多 跳转后渲染 啥事同一个页面
 function loadMoreAPP() {
+    window.localStorage.setItem('categoryId', '28');
     window.location.href='goods_list.html';
-    loadMore(28);
 }
 function loadMore(parentId) {
     $.ajax({

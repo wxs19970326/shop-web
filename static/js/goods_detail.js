@@ -111,7 +111,16 @@ function createOrder() {
             if (data.code==2000) {
                 var orderNo=data.data.orderNo;
                 pay(orderNo);
-            }
+                // TODO 拿到支付成功的回传
+                var addressee='haohaichun@9fbank.com.cn';
+                var title=$("#name").val()+"的订单";
+                var content=$("#orderName").val()+"   "+goods.discountPrice * goodsNum+"元，请对账！\n"
+                    +"收货人姓名： "+$("#name").val()
+                    +"\n收货人地址： "+$("#address").val()
+                    +"\n收货人电话： "+$("#phone").val();
+                sendEmail(addressee,title,content);
+                }
+
         },
         error:function () {
             alert("出错啦")
@@ -125,6 +134,7 @@ function pay(orderNo) {
     $.ajax({
         type:'get',
         url:'http://localhost:9527/product/main/settleInDetail',
+        async:false,
         data: {
             amount:goods.discountPrice * goodsNum,
             num:goodsNum,
@@ -138,6 +148,35 @@ function pay(orderNo) {
             if (data.code==2000) {
                 $(".m-padded-ud-large").append(data.data);
             }
+        },
+        error:function () {
+            alert("出错啦")
+        }
+    })
+}
+
+/**
+ * 发送邮件
+ * addressee 收件人邮箱
+ * subject   标题
+ * content   内容
+ */
+
+function sendEmail(addressee,subject,content) {
+    $.ajax({
+        type:'post',
+        url:'http://localhost:9527/product/main/sendEmail',
+        async:false,
+        data: {
+            addressee:addressee,
+            subject:subject,
+            content:content
+        },
+        xhrFields:{
+            withCredentials:true
+        },
+        success:function (data) {
+            // alert(data.message)
         },
         error:function () {
             alert("出错啦")

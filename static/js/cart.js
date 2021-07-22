@@ -190,7 +190,7 @@ function page(n) {
                 let sum = list[i].discountPrice *list[i].num;
                 $('.contentDiv').append(`
                 <tr>
-                    <td><input type="checkbox"/></td>
+                    <td><input type="checkbox" id="${list[i].id}"/></td>
                     <td>${list[i].name}</td>
                     <td>${list[i].color}</td>
                     <td>${list[i].size}</td>
@@ -214,14 +214,18 @@ function consume() {
     ;
     // 得在页面加载完之后 才能获取是否选中
     var sumMoney =0.0;
+    var name='';
     checkArr =$(".contentDiv input");
     for (let i=0;i<checkArr.length;i++){
         var detail =list[i];
         if (checkArr[i].checked==true){// 选中
             sumMoney+=(detail.discountPrice*detail.num);
+            name+=detail.num+"个"+detail.name+"+";
         }
     }
-    $("#sumMoney").html(sumMoney);
+    name=name.substring(0,name.length-1);
+    $("#amount").val(sumMoney);
+    $("#orderName").val(name)
 
 }
 // 关闭模态框
@@ -229,6 +233,64 @@ function cancle(){
     $('.ui.modal')
         .modal('hide')
     ;
+}
+
+/**
+ * 确定按钮--生成订单
+ * 多个商品 num是累加
+ * 多个商品id 存多条数据
+ *
+ */
+
+function createOrder() {
+    // 构建订单参数
+    var num=''; //订单商品数量
+    var goodsIds=''; //订单商品
+
+    checkArr =$(".contentDiv input");
+    for (let i=0;i<checkArr.length;i++){
+        var detail =list[i];
+        if (checkArr[i].checked==true){// 选中
+            num+=detail.num+",";
+            goodsIds+=detail.goodId+',';
+        }
+    }
+    num=num.substring(0,num.length-1);
+    goodsIds=goodsIds.substring(0,goodsIds.length-1);
+    $.ajax({
+        type:'get',
+        url:'http://localhost:9527/product/order/createOrders',
+        data: {
+            goodsIds:goodsIds,
+            num:num,
+            orderName:$("#orderName").val(),
+            amount:$("#amount").val(),
+            address:$("#address").val(),
+            name:$("#name").val(),
+            phone:$("#phone").val()
+        },
+        xhrFields:{
+            withCredentials:true
+        },
+        success:function (data) {
+            if (data.code==2000) {
+                var orderNo=data.data.orderNo;
+                // TODO 拿到支付成功的回传 暂时用pay()模拟
+                // pay(orderNo);
+                var addressee='haohaichun@9fbank.com.cn';
+                var title=$("#name").val()+"的订单";
+                var content=$("#orderName").val()+"   "+$("#amount").val()+"元，请对账！\n"
+                    +"收货人姓名： "+$("#name").val()
+                    +"\n收货人地址： "+$("#address").val()
+                    +"\n收货人电话： "+$("#phone").val();
+                sendEmail(addressee,title,content);
+            }
+
+        },
+        error:function () {
+            alert("出错啦")
+        }
+    })
 }
 //全选
 function choseAll() {
