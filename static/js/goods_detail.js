@@ -57,8 +57,8 @@ function lookGoodDetail(id){
                     <button class="ui red button" type="button" onclick="shoppingCart(${data.id})">加入购物车</button>
                 </div> 
             </div>
-    `);
-        }
+            `);
+            }
     })
 }
 //立即购买 -- 弹出模态框--填写订单信息
@@ -88,7 +88,7 @@ function cancle(){
     ;
 }
 
-// 确定按钮--生成订单
+// 确定按钮  支付--生成订单--发送邮件
 function createOrder() {
     let id=window.localStorage.getItem("detailId");
     var goodsNum = $("#goodsNum").val();
@@ -214,26 +214,31 @@ function shoppingCart(id) {
 }
 // 收藏/取消收藏
 function collect(goodsId){
-    $.ajax({
-        type: 'post',
-        url: 'http://localhost:9527/product/store/collect',
-        data:{
-            goodsId: goodsId
-        },
-        xhrFields:{
-            withCredentials:true
-        },
-        success:function (vo) {
-            let data = vo.data;
-            if(data==null){// 没有此商品 收藏
-                $("#like").css("color","red");
-                alert("收藏成功")
-            }else {// 取消收藏
-                $("#like").css("color","gray");
-                alert("取消收藏")
+    if (isLogin) {
+        $.ajax({
+            type: 'post',
+            url: 'http://localhost:9527/product/store/collect',
+            data:{
+                goodsId: goodsId
+            },
+            xhrFields:{
+                withCredentials:true
+            },
+            success:function (vo) {
+                let data = vo.data;
+                if(data==null){// 没有此商品 收藏
+                    $("#like").css("color","red");
+                    alert("收藏成功")
+                }else {// 取消收藏
+                    $("#like").css("color","gray");
+                    alert("取消收藏")
+                }
             }
-        }
-    })
+        })
+    }else {
+        alert(notLoginMsg);
+    }
+
 }
 //页面加载时 收藏展示
 function initShowHaert(goodsId) {

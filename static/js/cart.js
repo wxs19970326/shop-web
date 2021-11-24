@@ -276,7 +276,7 @@ function createOrder() {
             if (data.code==2000) {
                 var orderNo=data.data.orderNo;
                 // TODO 拿到支付成功的回传 暂时用pay()模拟
-                // pay(orderNo);
+                pay(orderNo);
                 var addressee='haohaichun@9fbank.com.cn';
                 var title=$("#name").val()+"的订单";
                 var content=$("#orderName").val()+"   "+$("#amount").val()+"元，请对账！\n"

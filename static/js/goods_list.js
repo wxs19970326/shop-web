@@ -85,23 +85,33 @@ function go2ListById(categoryId,name) {
 //分页查询
 function loadRecommendation(categoryId) {
     let currentPage = window.localStorage.getItem('currentPage');
-    $.ajax({
-        type:'post',
-        url:'http://localhost:9527/product/main/pager',
-        data: {
-            pageNum:currentPage,
-            pageSize:8,
-            categoryId:categoryId,
-            hasHot:1
-        },
-        xhrFields:{
-            withCredentials:true
-        },
-        success:function (vo) {
-            let list = vo.data.list;
-            $('#book_list').empty();
-            for (let i=0;i<list.length;i++){
-                $('#book_list').append(`
+    if (categoryId=='50') {
+        $('#book_list').empty();
+        $('#bottemDiv').css('display','none');
+        $('#book_list').append(` <div class="m-padded-ud-tiny" style="width: 600px;font-size: 20px;font-weight: bolder;">欢迎咨询：15133169272（手机号也是微信号）</div>`)
+    }else if(categoryId=='51'){
+        $('#book_list').empty();
+        $('#bottemDiv').css('display','none');
+        $('#book_list').append(` <div><img src="../static/img/wx.png" style="height: 220px" class="ui rounded image"></div>`)
+    }else {
+        $('#bottemDiv').css('display','block');
+        $.ajax({
+            type:'post',
+            url:'http://localhost:9527/product/main/pager',
+            data: {
+                pageNum:currentPage,
+                pageSize:8,
+                categoryId:categoryId,
+                hasHot:1
+            },
+            xhrFields:{
+                withCredentials:true
+            },
+            success:function (vo) {
+                let list = vo.data.list;
+                $('#book_list').empty();
+                for (let i=0;i<list.length;i++){
+                    $('#book_list').append(`
                         <div class="four wide column">
                                 <a onclick="goGoodDetail(${list[i].id})" style="cursor: pointer">
                                     <img src="${list[i].mainImage}" style="width: 250px;height: 220px" class="ui rounded image">
@@ -115,10 +125,10 @@ function loadRecommendation(categoryId) {
                                 <p style="font-size: 14px;color: red;">折扣价：` + list[i].discountPrice + `￥</p>
                             </div>
                         `);
+                }
             }
-
-        }
-    })
+        })
+    }
 }
 //上一页
 function prePage() {
